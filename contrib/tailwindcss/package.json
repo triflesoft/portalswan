@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "juice": "^11.0.1",
+    "minify": "^14.0.0",
+    "posthtml": "^0.16.6",
+    "posthtml-inline-css": "^1.2.3",
+    "tailwindcss": "^4.1.7"
+  }
+}

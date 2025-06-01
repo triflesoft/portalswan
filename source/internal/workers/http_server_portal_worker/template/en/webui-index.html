@@ -1,0 +1,156 @@
+{{ define "head_title" }}VPN: Home{{ end }}
+{{ define "main-section" }}
+            <div class="mb-8 lg:w-6/12 lg:float-left">
+                <img class="hidden collapse lg:block lg:visible" src="/static/img/large.png" alt="stringSwan Logo">
+                <p class="py-4 text-2xl text-gray-700">Open-source, modular and portable IPsec-based VPN solution</p>
+            </div>
+            <div class="lg:w-5/12 lg:float-right">
+                <div class="mb-8 hidden collapsed" id="status-success" >
+                    <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500"><i class="fa-solid fa-shield-halved"></i> You are connected to VPN server</p>
+                    <div class="bg-white w-full p-4 border-b-3 border-x-3 border-gray-100">
+                        <table class="w-full">
+                            <thead>
+                                <tr>
+                                    <th class="py-2 text-left text-red-500" id="verification-username"></th>
+                                    <th class="py-2 text-right">bytes</th>
+                                    <th class="py-2 text-right">packets</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th class="py-2 text-left">sent</th>
+                                    <td class="py-2 text-right text-red-500" id="verification-client-to-server-bytes"></td>
+                                    <td class="py-2 text-right text-red-500" id="verification-client-to-server-packets"></td>
+                                </tr>
+                                <tr>
+                                    <th class="py-2 text-left">received</th>
+                                    <td class="py-2 text-right text-red-500" id="verification-server-to-client-bytes"></td>
+                                    <td class="py-2 text-right text-red-500" id="verification-server-to-client-packets"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="p-4 text-base text-gray-700 font-semibold rounded-b-md border-b-3 border-x-3 border-gray-100 bg-white">
+                        Your public IP address is <a href="https://ipinfo.io/{{ $.RemoteAddr }}" target=_blank class="cursor-pointer font-semibold text-gray-700 hover:text-red-500">{{ $.RemoteAddr }}</a><br>
+                        Your private IP address is <span class="font-semibold" id="verification-ip-address"></span>
+                    </p>
+                </div>
+                <div class="mb-8 hidden collapsed" id="status-failure">
+                    <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500"><i class="fa-solid fa-dumpster-fire"></i> You are not connected to VPN server</p>
+                    <p class="p-4 text-base text-gray-700 font-semibold rounded-b-md border-b-3 border-x-3 border-gray-100 bg-white">
+                        Forgot password or IP address changed? Use <a href="/self-service/" class="cursor-pointer font-semibold text-gray-700 hover:text-red-500">Self-Service</a> page to create a new password.
+                    </p>
+                </div>
+            </div>
+<script>
+const verificationUrl = "https://{{ $.Form.PrivateHostname }}/verification/";
+
+document.addEventListener("DOMContentLoaded", function () {
+    const statusSuccessElement = document.getElementById("status-success");
+    const statusFailureElement = document.getElementById("status-failure");
+    const usernameElement = document.getElementById("verification-username");
+    const ipAddressElement = document.getElementById("verification-ip-address");
+    const clientToServerBytesElement = document.getElementById("verification-client-to-server-bytes");
+    const serverToClientBytesElement = document.getElementById("verification-server-to-client-bytes");
+    const clientToServerPacketsElement = document.getElementById("verification-client-to-server-packets");
+    const serverToClientPacketsElement = document.getElementById("verification-server-to-client-packets");
+    let lastSeenTimestamp = 0;
+
+    function formatUsername(value) {
+        return value.toString();
+    }
+
+    function formatBytes(value) {
+        if (value == 0) {
+            return "N/A";
+        }
+
+        if (value < 2 * 1024) {
+            return value.toString();
+        }
+
+        if (value < 2 * 1024 * 1024) {
+            return Math.ceil(value / 1024).toString() + " Kb";
+        }
+
+        if (value < 2 * 1024 * 1024 * 1024) {
+            return Math.ceil(value / (1024 * 1024)).toString() + " Mb";
+        }
+
+        return Math.ceil(value / (1024 * 1024 * 1024)).toString() + " Gb";
+    }
+
+    function formatPackets(value) {
+        if (value == 0) {
+            return "N/A";
+        }
+
+        if (value < 2000) {
+            return value.toString();
+        }
+
+        if (value < 2000000) {
+            return Math.ceil(value / 1000).toString() + "K";
+        }
+
+        if (value < 2000000000) {
+            return Math.ceil(value / 1000000).toString() + "M";
+        }
+
+        return Math.ceil(value / 1000000000).toString() + "G";
+    }
+
+    async function verifyConnection() {
+        const abortController = new AbortController();
+        const abortTimeout = setTimeout(() => abortController.abort(), 500);
+        let verificationStatus = false;
+        let verificationUsername = "";
+        let verificationIpAddress = "";
+        let verificationClientToServerBytes = 0;
+        let verificationServerToClientBytes = 0;
+        let verificationClientToServerPackets = 0;
+        let verificationServerToClientPackets = 0;
+
+        try {
+            const verificationResponse = await fetch(verificationUrl, { signal: abortController.signal });
+
+            if (verificationResponse.ok) {
+                verificationData = await verificationResponse.json();
+                timestamp = new Date().valueOf();
+
+                if ((timestamp != lastSeenTimestamp) && (Math.abs(verificationData.Timestamp - timestamp) < 5*60*1000)) {
+                    lastSeenTimestamp = timestamp;
+                    verificationUsername = verificationData.Username;
+                    verificationIpAddress = verificationData.IpAddress;
+                    verificationClientToServerBytes = verificationData.ClientToServerBytes;
+                    verificationServerToClientBytes = verificationData.ServerToClientBytes;
+                    verificationClientToServerPackets = verificationData.ClientToServerPackets;
+                    verificationServerToClientPackets = verificationData.ServerToClientPackets;
+                    verificationStatus = true;
+                }
+            }
+        } catch (error) {
+        } finally {
+            clearTimeout(abortTimeout);
+        }
+
+        if (verificationStatus) {
+            statusSuccessElement.classList.remove("hidden", "collapsed");
+            statusFailureElement.classList.add("hidden", "collapsed");
+            usernameElement.innerText = formatUsername(verificationUsername);
+            ipAddressElement.innerText = verificationIpAddress;
+            clientToServerBytesElement.innerText = formatBytes(verificationClientToServerBytes);
+            serverToClientBytesElement.innerText = formatBytes(verificationServerToClientBytes);
+            clientToServerPacketsElement.innerText = formatPackets(verificationClientToServerPackets);
+            serverToClientPacketsElement.innerText = formatPackets(verificationServerToClientPackets);
+        } else {
+            statusSuccessElement.classList.add("hidden", "collapsed");
+            statusFailureElement.classList.remove("hidden", "collapsed");
+        }
+    }
+
+    verifyConnection();
+    setInterval(verifyConnection, 5000);
+});
+</script>
+{{ end }}

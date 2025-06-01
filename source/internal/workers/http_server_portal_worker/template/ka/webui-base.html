@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/base.css" rel="stylesheet">
+    <title>{{ block "head_title" . }}!!!TITLE!!!{{ end }}</title>
+</head>
+
+<body class="bg-white font-family-montserrat">
+    <nav class="z-100 mb-8 w-full flex flex-row sticky top-0 border-b-3 border-gray-100 bg-gray-100 lg:bg-white">
+        <div class="lg:w-1/10"></div>
+        <div class="w-full flex flex-col lg:w-8/10 lg:flex-row lg:justify-end lg:space-x-4">
+            <div class="flex flex-col lg:flex-row lg:justify-start">
+                <img class="block h-14 w-50" src="/static/img/small.svg" alt="stringSwan Logo">
+            </div>
+            <div class="flex flex-col lg:flex-row lg:justify-end">
+                <div class="flex flex-col relative lg:flex-row">
+                    <a class="h-14 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-0 text-base cursor-pointer border-b-2 border-transparent hover:bg-gray-50 hover:border-red-500 {{ if eq .Path "/" }}text-red-500 hover:text-red-500{{ else }}text-gray-700{{ end }}" href="/">მთავარი</a>
+                    <a class="h-14 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-0 text-base cursor-pointer border-b-2 border-transparent hover:bg-gray-50 hover:border-red-500 {{ if eq .Path "/self-service/" }}text-red-500 hover:text-red-500{{ else }}text-gray-700{{ end }}" href="/self-service/">თვითმომსახურება</a>
+                </div>
+                <div class="flex flex-row relative">
+                    <a class="h-8 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-3 text-base cursor-pointer border-b-2 border-transparent font-semibold rounded-full {{ if eq .Bcp47 "en" }}text-white border-red-800 bg-red-500 hover:bg-red-800{{ else }}text-gray-700 border-gray-200 bg-gray-100 hover:text-gray-500 hover:bg-gray-200{{ end }}" href="?bcp47tag=en">EN</a>
+                    <a class="h-8 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-3 text-base cursor-pointer border-b-2 border-transparent font-semibold rounded-full {{ if eq .Bcp47 "ka" }}text-white border-red-800 bg-red-500 hover:bg-red-800{{ else }}text-gray-700 border-gray-200 bg-gray-100 hover:text-gray-500 hover:bg-gray-200{{ end }}" href="?bcp47tag=ka">KA</a>
+                </div>
+            </div>
+        </div>
+        <div class="lg:w-1/10"></div>
+    </nav>
+    <main class="mb-8 w-full flex flex-row bg-[url('/static/img/background.svg')] bg-contain bg-no-repeat bg-right">
+        <div class="w-2 lg:w-1/10"></div>
+        <section class="grow lg:w-8/10">
+            {{ block "main-section" . }}{{ end }}
+        </section>
+        <div class="w-2 lg:w-1/10"></div>
+    </main>
+    <footer class="w-full flex flex-row bg-gray-900">
+        <div class="w-1/10"></div>
+        <section class="w-8/10 py-32">
+            <p class="text-2xl text-white font-semibold">ეს სისტემა ხელმისაწვდომია მხოლოდ ავტორიზებული მომხმარებლებისთვის, <span class="text-red-500">დაუყოვნებლივ გათიშეთ</span> თუ არ ხართ ავტორიზებული. ამ სისტემაში შესვლით თქვენ ეთანხმებით შემდეგი წესებისა და პირობების შინაარსს:</p>
+            <ul class="text-2xl text-white font-semibold list-disc pl-8">
+                <li class="my-8">არაავტორიზებული წვდომა <span class="text-red-500">მკაცრად აკრძალულია</span>.</li>
+                <li class="my-8">არაავტორიზებული წვდომის შემთხვევაში მიღებული იქნება <span class="text-red-500">სამართლებრივი ზომები</span>. არაავტორიზებული წვდომის ან სხვა ნებისმიერი კრიმინალური საქმიანობის მტკიცებულებები ეცნობება სამართალდამცავ ორგანოებს.</li>
+                <li class="my-8">ამ სისტემის გამოყენება აღირიცხება. ეს სისტემა კონტროლდება. ეს სისტემა აუდიტირებულია ავტომატური და ხელით მონიტორინგის საშუალებით. ამ სისტემის მონიტორინგისთვის გამოიყენება პოლიტიკა. <span class="text-red-500">საიდუმლოება ან კონფიდენციალურობა</span> გარანტირებული არ არის.</li>
+            </ul>
+        </section>
+        <div class="w-1/10"></div>
+    </footer>
+</body>
+
+</html>
