@@ -1,0 +1,236 @@
+{
+    "language": "ru",
+    "messages": [
+        {
+            "id": "Home",
+            "message": "Home",
+            "translation": "Главная"
+        },
+        {
+            "id": "Self Service",
+            "message": "Self Service",
+            "translation": "Самообслуживание"
+        },
+        {
+            "id": "This system is only available for authorized users, \u003cspan class=\\\"text-red-500\\\"\u003edisconnect immediately\u003c/span\u003e if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:",
+            "message": "This system is only available for authorized users, \u003cspan class=\\\"text-red-500\\\"\u003edisconnect immediately\u003c/span\u003e if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:",
+            "translation": "Эта система доступна только для авторизованных пользователей, \u003cspan class=\\\"text-red-500\\\"\u003eнемедленно отключитесь\u003c/span\u003e, если вы не авторизованы. Получая доступ к этой системе, вы принимаете содержание следующих положений и условий:"
+        },
+        {
+            "id": "Unauthorized access is \u003cspan class=\\\"text-red-500\\\"\u003estrictly prohibited\u003c/span\u003e.",
+            "message": "Unauthorized access is \u003cspan class=\\\"text-red-500\\\"\u003estrictly prohibited\u003c/span\u003e.",
+            "translation": "Несанкционированный доступ \u003cspan class=\\\"text-red-500\\\"\u003eстрого запрещен\u003c/span\u003e."
+        },
+        {
+            "id": "\u003cspan class=\\\"text-red-500\\\"\u003eLegal measures\u003c/span\u003e will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.",
+            "message": "\u003cspan class=\\\"text-red-500\\\"\u003eLegal measures\u003c/span\u003e will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.",
+            "translation": "В случае несанкционированного доступа будут приняты \u003cspan class=\\\"text-red-500\\\"\u003eправовые меры\u003c/span\u003e. Доказательства несанкционированного доступа или любой другой преступной деятельности будут переданы сотрудникам правоохранительных органов."
+        },
+        {
+            "id": "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. \u003cspan class=\\\"text-red-500\\\"\u003eNo secrecy or privacy\u003c/span\u003e is guaranteed.",
+            "message": "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. \u003cspan class=\\\"text-red-500\\\"\u003eNo secrecy or privacy\u003c/span\u003e is guaranteed.",
+            "translation": "Использование этой системы записывается. Эта система контролируется. Эта система проверяется с помощью автоматического и ручного мониторинга. Для мониторинга этой системы применяются соответствующие политики. \u003cspan class=\\\"text-red-500\\\"\u003eНикакая секретность или конфиденциальность\u003c/span\u003e не гарантируются."
+        },
+        {
+            "id": "VPN: Error",
+            "message": "VPN: Error",
+            "translation": "VPN: Ошибка"
+        },
+        {
+            "id": "Something went \u003cspan class=\\\"text-red-500\\\"\u003ewrong\u003c/span\u003e, we are sorry.",
+            "message": "Something went \u003cspan class=\\\"text-red-500\\\"\u003ewrong\u003c/span\u003e, we are sorry.",
+            "translation": "Что-то пошло не так, приносим извинения."
+        },
+        {
+            "id": "VPN: Home",
+            "message": "VPN: Home",
+            "translation": "VPN: Главная"
+        },
+        {
+            "id": "Open-source, modular and portable IPsec-based VPN solution",
+            "message": "Open-source, modular and portable IPsec-based VPN solution",
+            "translation": "Модульное и портативное решение VPN на базе IPsec с открытым исходным кодом"
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are connected to VPN server",
+            "message": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are connected to VPN server",
+            "translation": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;Вы подключены к VPN-серверу"
+        },
+        {
+            "id": "bytes",
+            "message": "bytes",
+            "translation": "байты"
+        },
+        {
+            "id": "packets",
+            "message": "packets",
+            "translation": "пакеты"
+        },
+        {
+            "id": "sent",
+            "message": "sent",
+            "translation": "отправлено"
+        },
+        {
+            "id": "received",
+            "message": "received",
+            "translation": "получено"
+        },
+        {
+            "id": "Your public IP address is \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "message": "Your public IP address is \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "translation": "Ваш публичный IP-адрес \u0026mdash; \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "placeholders": [
+                {
+                    "id": "arg1",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "arg1",
+                    "comment": "From HTML template"
+                }
+            ]
+        },
+        {
+            "id": "Your private IP address is \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e",
+            "message": "Your private IP address is \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e",
+            "translation": "Ваш частный IP-адрес \u0026mdash; \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e"
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are not connected to VPN server",
+            "message": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are not connected to VPN server",
+            "translation": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;Вы не подключены к VPN-серверу"
+        },
+        {
+            "id": "Forgot password or IP address changed? Use \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eSelf-Service\u003c/a\u003e page to create a new password.",
+            "message": "Forgot password or IP address changed? Use \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eSelf-Service\u003c/a\u003e page to create a new password.",
+            "translation": "Забыли пароль или изменился IP-адрес?  Используйте страницу \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eсамообслуживания\u003c/a\u003e, чтобы создать новый пароль."
+        },
+        {
+            "id": "N/A",
+            "message": "N/A",
+            "translation": "Н/Д"
+        },
+        {
+            "id": "Kb",
+            "message": "Kb",
+            "translation": "Кб"
+        },
+        {
+            "id": "Mb",
+            "message": "Mb",
+            "translation": "Мб"
+        },
+        {
+            "id": "Gb",
+            "message": "Gb",
+            "translation": "Гб"
+        },
+        {
+            "id": "K",
+            "message": "K",
+            "translation": "К"
+        },
+        {
+            "id": "M",
+            "message": "M",
+            "translation": "М"
+        },
+        {
+            "id": "G",
+            "message": "G",
+            "translation": "Г"
+        },
+        {
+            "id": "VPN: Create Password",
+            "message": "VPN: Create Password",
+            "translation": "VPN: Создать пароль"
+        },
+        {
+            "id": "Success!",
+            "message": "Success!",
+            "translation": "Успех!"
+        },
+        {
+            "id": "Your new password for \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e and \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e created successfully.",
+            "message": "Your new password for \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e and \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e created successfully.",
+            "translation": "Ваш новый пароль для \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e и \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e успешно создан.",
+            "placeholders": [
+                {
+                    "id": "arg1",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "arg1",
+                    "comment": "From HTML template"
+                },
+                {
+                    "id": "arg2",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "arg2",
+                    "comment": "From HTML template"
+                }
+            ]
+        },
+        {
+            "id": "Please save this password in your VPN client settings now. \u003cspan class=\\\"text-red-500\\\"\u003eYou will not be able to view it again later\u003c/span\u003e.",
+            "message": "Please save this password in your VPN client settings now. \u003cspan class=\\\"text-red-500\\\"\u003eYou will not be able to view it again later\u003c/span\u003e.",
+            "translation": "Пожалуйста, сохраните этот пароль в настройках вашего VPN-клиента сейчас. \u003cspan class=\\\"text-red-500\\\"\u003eВы не сможете просмотреть его позже\u003c/span\u003e."
+        },
+        {
+            "id": "VPN: Create Password Fail",
+            "message": "VPN: Create Password Fail",
+            "translation": "VPN: Не удалось создать пароль"
+        },
+        {
+            "id": "\u003cspan class=\\\"text-red-500\\\"\u003eFailed\u003c/span\u003e to create password. Try to start over.",
+            "message": "\u003cspan class=\\\"text-red-500\\\"\u003eFailed\u003c/span\u003e to create password. Try to start over.",
+            "translation": "\u003cspan class=\\\"text-red-500\\\"\u003eНе удалось\u003c/span\u003e создать пароль. Попробуйте начать заново."
+        },
+        {
+            "id": "VPN: Email Sent",
+            "message": "VPN: Email Sent",
+            "translation": "VPN: Электронное письмо отправлено"
+        },
+        {
+            "id": "Wait for an Email",
+            "message": "Wait for an Email",
+            "translation": "Ждите письмо по электронной почте"
+        },
+        {
+            "id": "Within a few minutes you will receive an email with a create password hyperlink.",
+            "message": "Within a few minutes you will receive an email with a create password hyperlink.",
+            "translation": "В течение нескольких минут вы получите письмо с гиперссылкой для создания пароля."
+        },
+        {
+            "id": "VPN: Self Service",
+            "message": "VPN: Self Service",
+            "translation": "VPN: Самообслуживание"
+        },
+        {
+            "id": "Create a New Password",
+            "message": "Create a New Password",
+            "translation": "Создать новый пароль"
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eYour email address\u003c/span\u003e",
+            "message": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eYour email address\u003c/span\u003e",
+            "translation": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eВаш адрес электронной почты\u003c/span\u003e"
+        },
+        {
+            "id": "Create Password Now!",
+            "message": "Create Password Now!",
+            "translation": "Создать пароль сейчас!"
+        },
+        {
+            "id": "Create your VPN password via an email with a \u003cspan class=\\\"text-red-500\\\"\u003ehyperlink\u003c/span\u003e.",
+            "message": "Create your VPN password via an email with a \u003cspan class=\\\"text-red-500\\\"\u003ehyperlink\u003c/span\u003e.",
+            "translation": "Создайте свой пароль VPN с помощью электронного письма с \u003cspan class=\\\"text-red-500\\\"\u003eгиперссылкой\u003c/span\u003e."
+        }
+    ]
+}

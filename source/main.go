@@ -11,6 +11,8 @@ import (
 	"github.com/triflesoft/portalswan/internal/workers/http_server_radius_worker"
 	"github.com/triflesoft/portalswan/internal/workers/netfilter_client_worker"
 	"github.com/triflesoft/portalswan/internal/workers/vici_client_worker"
+
+	_ "github.com/triflesoft/portalswan/internal/localization"
 )
 
 func main() {

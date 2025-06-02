@@ -1,0 +1,236 @@
+{
+    "language": "ka",
+    "messages": [
+        {
+            "id": "Home",
+            "message": "Home",
+            "translation": "მთავარი"
+        },
+        {
+            "id": "Self Service",
+            "message": "Self Service",
+            "translation": "თვითმომსახურება"
+        },
+        {
+            "id": "This system is only available for authorized users, \u003cspan class=\\\"text-red-500\\\"\u003edisconnect immediately\u003c/span\u003e if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:",
+            "message": "This system is only available for authorized users, \u003cspan class=\\\"text-red-500\\\"\u003edisconnect immediately\u003c/span\u003e if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:",
+            "translation": "ეს სისტემა ხელმისაწვდომია მხოლოდ ავტორიზებული მომხმარებლებისთვის, თუ არ ხართ ავტორიზებული, \u003cspan class=\\\"text-red-500\\\"\u003eდაუყოვნებლივ გათიშეთ კავშირი\u003c/span\u003e. ამ სისტემაში შესვლით თქვენ ეთანხმებით შემდეგი წესებისა და პირობების შინაარსს:"
+        },
+        {
+            "id": "Unauthorized access is \u003cspan class=\\\"text-red-500\\\"\u003estrictly prohibited\u003c/span\u003e.",
+            "message": "Unauthorized access is \u003cspan class=\\\"text-red-500\\\"\u003estrictly prohibited\u003c/span\u003e.",
+            "translation": "უნებართვო წვდომა \u003cspan class=\\\"text-red-500\\\"\u003eმკაცრად აკრძალულია\u003c/span\u003e."
+        },
+        {
+            "id": "\u003cspan class=\\\"text-red-500\\\"\u003eLegal measures\u003c/span\u003e will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.",
+            "message": "\u003cspan class=\\\"text-red-500\\\"\u003eLegal measures\u003c/span\u003e will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.",
+            "translation": "არაავტორიზებული წვდომის შემთხვევაში მიღებული იქნება \u003cspan class=\\\"text-red-500\\\"\u003eსამართლებრივი ზომები\u003c/span\u003e. არაავტორიზებული წვდომის ან სხვა ნებისმიერი კრიმინალური საქმიანობის მტკიცებულებები ეცნობება სამართალდამცავ ორგანოებს."
+        },
+        {
+            "id": "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. \u003cspan class=\\\"text-red-500\\\"\u003eNo secrecy or privacy\u003c/span\u003e is guaranteed.",
+            "message": "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. \u003cspan class=\\\"text-red-500\\\"\u003eNo secrecy or privacy\u003c/span\u003e is guaranteed.",
+            "translation": "ამ სისტემის გამოყენება აღირიცხება. ეს სისტემა მონიტორინგდება. ეს სისტემა აუდიტის ქვეშაა ავტომატური და ხელით მონიტორინგის საშუალებით. ამ სისტემის მონიტორინგისთვის გამოიყენება პოლიტიკები. \u003cspan class=\\\"text-red-500\\\"\u003eსაიდუმლოება ან კონფიდენციალურობა არ არის\u003c/span\u003e გარანტირებული."
+        },
+        {
+            "id": "VPN: Error",
+            "message": "VPN: Error",
+            "translation": "VPN: შეცდომა"
+        },
+        {
+            "id": "Something went \u003cspan class=\\\"text-red-500\\\"\u003ewrong\u003c/span\u003e, we are sorry.",
+            "message": "Something went \u003cspan class=\\\"text-red-500\\\"\u003ewrong\u003c/span\u003e, we are sorry.",
+            "translation": "რაღაც მოხდა \u003cspan class=\\\"text-red-500\\\\\"\u003ewrong\u003c/span\u003e, ვწუხვართ."
+        },
+        {
+            "id": "VPN: Home",
+            "message": "VPN: Home",
+            "translation": "VPN: მთავარი"
+        },
+        {
+            "id": "Open-source, modular and portable IPsec-based VPN solution",
+            "message": "Open-source, modular and portable IPsec-based VPN solution",
+            "translation": "ღია კოდის, მოდულური და პორტატული IPsec-ზე დაფუძნებული VPN გადაწყვეტა"
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are connected to VPN server",
+            "message": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are connected to VPN server",
+            "translation": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;თქვენ დაკავშირებული ხართ VPN სერვერთან"
+        },
+        {
+            "id": "bytes",
+            "message": "bytes",
+            "translation": "ბაიტები"
+        },
+        {
+            "id": "packets",
+            "message": "packets",
+            "translation": "პაკეტები"
+        },
+        {
+            "id": "sent",
+            "message": "sent",
+            "translation": "გაგზავნილია"
+        },
+        {
+            "id": "received",
+            "message": "received",
+            "translation": "მიღებულია"
+        },
+        {
+            "id": "Your public IP address is \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "message": "Your public IP address is \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "translation": "თქვენი საჯარო IP მისამართია \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "placeholders": [
+                {
+                    "id": "arg1",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "arg1",
+                    "comment": "From HTML template"
+                }
+            ]
+        },
+        {
+            "id": "Your private IP address is \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e",
+            "message": "Your private IP address is \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e",
+            "translation": "თქვენი პირადი IP მისამართია \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e"
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are not connected to VPN server",
+            "message": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are not connected to VPN server",
+            "translation": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;თქვენ არ ხართ დაკავშირებული VPN სერვერთან"
+        },
+        {
+            "id": "Forgot password or IP address changed? Use \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eSelf-Service\u003c/a\u003e page to create a new password.",
+            "message": "Forgot password or IP address changed? Use \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eSelf-Service\u003c/a\u003e page to create a new password.",
+            "translation": "პაროლი დაგავიწყდათ ან IP მისამართი შეიცვალა? ახალი პაროლის შესაქმნელად გამოიყენეთ \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eთვითმომსახურების\u003c/a\u003e გვერდი."
+        },
+        {
+            "id": "N/A",
+            "message": "N/A",
+            "translation": "ა/ხ"
+        },
+        {
+            "id": "Kb",
+            "message": "Kb",
+            "translation": "კბ"
+        },
+        {
+            "id": "Mb",
+            "message": "Mb",
+            "translation": "მბ"
+        },
+        {
+            "id": "Gb",
+            "message": "Gb",
+            "translation": "გბ"
+        },
+        {
+            "id": "K",
+            "message": "K",
+            "translation": "კ"
+        },
+        {
+            "id": "M",
+            "message": "M",
+            "translation": "მ"
+        },
+        {
+            "id": "G",
+            "message": "G",
+            "translation": "გ"
+        },
+        {
+            "id": "VPN: Create Password",
+            "message": "VPN: Create Password",
+            "translation": "VPN: შექმენი პაროლი"
+        },
+        {
+            "id": "Success!",
+            "message": "Success!",
+            "translation": "წარმატება!"
+        },
+        {
+            "id": "Your new password for \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e and \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e created successfully.",
+            "message": "Your new password for \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e and \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e created successfully.",
+            "translation": "თქვენი ახალი პაროლი \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e-ისა და \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e-ისთვის წარმატებით შეიქმნა.",
+            "placeholders": [
+                {
+                    "id": "arg1",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "arg1",
+                    "comment": "From HTML template"
+                },
+                {
+                    "id": "arg2",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "arg2",
+                    "comment": "From HTML template"
+                }
+            ]
+        },
+        {
+            "id": "Please save this password in your VPN client settings now. \u003cspan class=\\\"text-red-500\\\"\u003eYou will not be able to view it again later\u003c/span\u003e.",
+            "message": "Please save this password in your VPN client settings now. \u003cspan class=\\\"text-red-500\\\"\u003eYou will not be able to view it again later\u003c/span\u003e.",
+            "translation": "გთხოვთ, ახლავე შეინახოთ ეს პაროლი თქვენი VPN კლიენტის პარამეტრებში \u003cspan class=\\\"text-red-500\\\"\u003eთქვენ მოგვიანებით ვეღარ შეძლებთ მის ნახვას\u003c/span\u003e."
+        },
+        {
+            "id": "VPN: Create Password Fail",
+            "message": "VPN: Create Password Fail",
+            "translation": "VPN: პაროლის შექმნა ვერ მოხერხდა"
+        },
+        {
+            "id": "\u003cspan class=\\\"text-red-500\\\"\u003eFailed\u003c/span\u003e to create password. Try to start over.",
+            "message": "\u003cspan class=\\\"text-red-500\\\"\u003eFailed\u003c/span\u003e to create password. Try to start over.",
+            "translation": "პაროლის შექმნა ვერ მოხერხდა. სცადეთ თავიდან დაწყება."
+        },
+        {
+            "id": "VPN: Email Sent",
+            "message": "VPN: Email Sent",
+            "translation": "VPN: ელ.ფოსტა გაგზავნილია"
+        },
+        {
+            "id": "Wait for an Email",
+            "message": "Wait for an Email",
+            "translation": "დაელოდეთ ელექტრონულ წერილს"
+        },
+        {
+            "id": "Within a few minutes you will receive an email with a create password hyperlink.",
+            "message": "Within a few minutes you will receive an email with a create password hyperlink.",
+            "translation": "რამდენიმე წუთში თქვენ მიიღებთ წერილს პაროლის შექმნის ჰიპერბმულით."
+        },
+        {
+            "id": "VPN: Self Service",
+            "message": "VPN: Self Service",
+            "translation": "VPN: თვითმომსახურება"
+        },
+        {
+            "id": "Create a New Password",
+            "message": "Create a New Password",
+            "translation": "შექმენით ახალი პაროლი"
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eYour email address\u003c/span\u003e",
+            "message": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eYour email address\u003c/span\u003e",
+            "translation": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eთქვენი ელექტრონული ფოსტის მისამართი\u003c/span\u003e"
+        },
+        {
+            "id": "Create Password Now!",
+            "message": "Create Password Now!",
+            "translation": "შექმენით პაროლი ახლავე!"
+        },
+        {
+            "id": "Create your VPN password via an email with a \u003cspan class=\\\"text-red-500\\\"\u003ehyperlink\u003c/span\u003e.",
+            "message": "Create your VPN password via an email with a \u003cspan class=\\\"text-red-500\\\"\u003ehyperlink\u003c/span\u003e.",
+            "translation": "შექმენით თქვენი VPN პაროლი ელექტრონული წერილის \u003cspan class=\\\"text-red-500\\\"\u003eჰიპერბმულის\u003c/span\u003e გამოყენებით."
+        }
+    ]
+}

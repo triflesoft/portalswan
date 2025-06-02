@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="$.Bcp47Tag">
 
 <head>
     <meta charset="UTF-8">
@@ -21,12 +21,13 @@
             </div>
             <div class="flex flex-col lg:flex-row lg:justify-end">
                 <div class="flex flex-col relative lg:flex-row">
-                    <a class="h-14 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-0 text-base cursor-pointer border-b-2 border-transparent hover:bg-gray-50 hover:border-red-500 {{ if eq .Path "/" }}text-red-500 hover:text-red-500{{ else }}text-gray-700{{ end }}" href="/">Home</a>
-                    <a class="h-14 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-0 text-base cursor-pointer border-b-2 border-transparent hover:bg-gray-50 hover:border-red-500 {{ if eq .Path "/self-service/" }}text-red-500 hover:text-red-500{{ else }}text-gray-700{{ end }}" href="/self-service/">Self Service</a>
+                    <a class="h-14 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-0 text-base cursor-pointer border-b-2 border-transparent hover:bg-gray-50 hover:border-red-500 {{ if eq $.Path "/" }}text-red-500 hover:text-red-500{{ else }}text-gray-700{{ end }}" href="/">{{ l10n "Home" }}</a>
+                    <a class="h-14 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-0 text-base cursor-pointer border-b-2 border-transparent hover:bg-gray-50 hover:border-red-500 {{ if eq $.Path "/self-service/" }}text-red-500 hover:text-red-500{{ else }}text-gray-700{{ end }}" href="/self-service/">{{ l10n "Self Service" }}</a>
                 </div>
                 <div class="flex flex-row relative">
-                    <a class="h-8 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-3 text-base cursor-pointer border-b-2 border-transparent font-semibold rounded-full {{ if eq .Bcp47 "en" }}text-white border-red-800 bg-red-500 hover:bg-red-800{{ else }}text-gray-700 border-gray-200 bg-gray-100 hover:text-gray-500 hover:bg-gray-200{{ end }}" href="?bcp47tag=en">EN</a>
-                    <!-- a class="h-8 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-3 text-base cursor-pointer border-b-2 border-transparent font-semibold rounded-full {{ if eq .Bcp47 "ka" }}text-white border-red-800 bg-red-500 hover:bg-red-800{{ else }}text-gray-700 border-gray-200 bg-gray-100 hover:text-gray-500 hover:bg-gray-200{{ end }}" href="?bcp47tag=ka">KA</a -->
+                    <a class="h-8 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-3 text-base cursor-pointer border-b-2 border-transparent font-semibold rounded-full {{ if eq $.Bcp47Tag "en" }}text-white border-red-800 bg-red-500 hover:bg-red-800{{ else }}text-gray-700 border-gray-200 bg-gray-100 hover:text-gray-500 hover:bg-gray-200{{ end }}" href="?bcp47tag=en">EN</a>
+                    <a class="h-8 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-3 text-base cursor-pointer border-b-2 border-transparent font-semibold rounded-full {{ if eq $.Bcp47Tag "ka" }}text-white border-red-800 bg-red-500 hover:bg-red-800{{ else }}text-gray-700 border-gray-200 bg-gray-100 hover:text-gray-500 hover:bg-gray-200{{ end }}" href="?bcp47tag=ka">KA</a>
+                    <a class="h-8 flex items-center pt-3.5 pb-2.5 px-3 ml-1 my-3 text-base cursor-pointer border-b-2 border-transparent font-semibold rounded-full {{ if eq $.Bcp47Tag "ru" }}text-white border-red-800 bg-red-500 hover:bg-red-800{{ else }}text-gray-700 border-gray-200 bg-gray-100 hover:text-gray-500 hover:bg-gray-200{{ end }}" href="?bcp47tag=ru">RU</a>
                 </div>
             </div>
         </div>
@@ -42,11 +43,11 @@
     <footer class="w-full flex flex-row bg-gray-900">
         <div class="w-1/10"></div>
         <section class="w-8/10 py-32">
-            <p class="text-2xl text-white font-semibold">This system is only available for authorized users, <span class="text-red-500">disconnect immediately</span> if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:</p>
+            <p class="text-2xl text-white font-semibold">{{ l10n "This system is only available for authorized users, <span class=\"text-red-500\">disconnect immediately</span> if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:" }}</p>
             <ul class="text-2xl text-white font-semibold list-disc pl-8">
-                <li class="my-8">Unauthorized access is <span class="text-red-500">strictly prohibited</span>.</li>
-                <li class="my-8"><span class="text-red-500">Legal measures</span> will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.</li>
-                <li class="my-8">Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. <span class="text-red-500">No secrecy or privacy</span> is guaranteed.</li>
+                <li class="my-8">{{ l10n "Unauthorized access is <span class=\"text-red-500\">strictly prohibited</span>." }}</li>
+                <li class="my-8">{{ l10n "<span class=\"text-red-500\">Legal measures</span> will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials." }}</li>
+                <li class="my-8">{{ l10n "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. <span class=\"text-red-500\">No secrecy or privacy</span> is guaranteed." }}</li>
             </ul>
         </section>
         <div class="w-1/10"></div>

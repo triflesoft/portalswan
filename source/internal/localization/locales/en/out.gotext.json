@@ -1,0 +1,316 @@
+{
+    "language": "en",
+    "messages": [
+        {
+            "id": "Home",
+            "message": "Home",
+            "translation": "Home",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Self Service",
+            "message": "Self Service",
+            "translation": "Self Service",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "This system is only available for authorized users, \u003cspan class=\\\"text-red-500\\\"\u003edisconnect immediately\u003c/span\u003e if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:",
+            "message": "This system is only available for authorized users, \u003cspan class=\\\"text-red-500\\\"\u003edisconnect immediately\u003c/span\u003e if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:",
+            "translation": "This system is only available for authorized users, \u003cspan class=\\\"text-red-500\\\"\u003edisconnect immediately\u003c/span\u003e if you are not authorized. By accessing this system you accept the contents of the following terms and conditions:",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Unauthorized access is \u003cspan class=\\\"text-red-500\\\"\u003estrictly prohibited\u003c/span\u003e.",
+            "message": "Unauthorized access is \u003cspan class=\\\"text-red-500\\\"\u003estrictly prohibited\u003c/span\u003e.",
+            "translation": "Unauthorized access is \u003cspan class=\\\"text-red-500\\\"\u003estrictly prohibited\u003c/span\u003e.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "\u003cspan class=\\\"text-red-500\\\"\u003eLegal measures\u003c/span\u003e will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.",
+            "message": "\u003cspan class=\\\"text-red-500\\\"\u003eLegal measures\u003c/span\u003e will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.",
+            "translation": "\u003cspan class=\\\"text-red-500\\\"\u003eLegal measures\u003c/span\u003e will be taken in case of unauthorized access. The evidence of unauthorized access or any other criminal activity will be reported to law enforcement officials.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. \u003cspan class=\\\"text-red-500\\\"\u003eNo secrecy or privacy\u003c/span\u003e is guaranteed.",
+            "message": "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. \u003cspan class=\\\"text-red-500\\\"\u003eNo secrecy or privacy\u003c/span\u003e is guaranteed.",
+            "translation": "Usage of this system is recorded. This system is monitored. This system is audited by means of automatic and manual monitoring. Policies are enforced to monitor this system. \u003cspan class=\\\"text-red-500\\\"\u003eNo secrecy or privacy\u003c/span\u003e is guaranteed.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "VPN: Error",
+            "message": "VPN: Error",
+            "translation": "VPN: Error",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Something went \u003cspan class=\\\"text-red-500\\\"\u003ewrong\u003c/span\u003e, we are sorry.",
+            "message": "Something went \u003cspan class=\\\"text-red-500\\\"\u003ewrong\u003c/span\u003e, we are sorry.",
+            "translation": "Something went \u003cspan class=\\\"text-red-500\\\"\u003ewrong\u003c/span\u003e, we are sorry.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "VPN: Home",
+            "message": "VPN: Home",
+            "translation": "VPN: Home",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Open-source, modular and portable IPsec-based VPN solution",
+            "message": "Open-source, modular and portable IPsec-based VPN solution",
+            "translation": "Open-source, modular and portable IPsec-based VPN solution",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are connected to VPN server",
+            "message": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are connected to VPN server",
+            "translation": "\u003ci class=\\\"fa-solid fa-shield-halved\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are connected to VPN server",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "bytes",
+            "message": "bytes",
+            "translation": "bytes",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "packets",
+            "message": "packets",
+            "translation": "packets",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "sent",
+            "message": "sent",
+            "translation": "sent",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "received",
+            "message": "received",
+            "translation": "received",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Your public IP address is \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "message": "Your public IP address is \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "translation": "Your public IP address is \u003ca href=\\\"https://ipinfo.io/%[1]s\\\" target=_blank class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003e%[1]s\u003c/a\u003e",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "arg1",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "arg1",
+                    "comment": "From HTML template"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Your private IP address is \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e",
+            "message": "Your private IP address is \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e",
+            "translation": "Your private IP address is \u003cspan class=\\\"font-semibold\\\" id=\\\"verification-ip-address\\\"\u003e\u003c/span\u003e",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are not connected to VPN server",
+            "message": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are not connected to VPN server",
+            "translation": "\u003ci class=\\\"fa-solid fa-dumpster-fire\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;You are not connected to VPN server",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Forgot password or IP address changed? Use \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eSelf-Service\u003c/a\u003e page to create a new password.",
+            "message": "Forgot password or IP address changed? Use \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eSelf-Service\u003c/a\u003e page to create a new password.",
+            "translation": "Forgot password or IP address changed? Use \u003ca href=\\\"/self-service/\\\" class=\\\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\\\"\u003eSelf-Service\u003c/a\u003e page to create a new password.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "N/A",
+            "message": "N/A",
+            "translation": "N/A",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Kb",
+            "message": "Kb",
+            "translation": "Kb",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Mb",
+            "message": "Mb",
+            "translation": "Mb",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Gb",
+            "message": "Gb",
+            "translation": "Gb",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "K",
+            "message": "K",
+            "translation": "K",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "M",
+            "message": "M",
+            "translation": "M",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "G",
+            "message": "G",
+            "translation": "G",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "VPN: Create Password",
+            "message": "VPN: Create Password",
+            "translation": "VPN: Create Password",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Success!",
+            "message": "Success!",
+            "translation": "Success!",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Your new password for \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e and \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e created successfully.",
+            "message": "Your new password for \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e and \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e created successfully.",
+            "translation": "Your new password for \u003cspan class=\\\"text-red-500\\\"\u003e%[1]s\u003c/span\u003e and \u003cspan class=\\\"text-red-500\\\"\u003e%[2]s\u003c/span\u003e created successfully.",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "arg1",
+                    "string": "%[1]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 1,
+                    "expr": "arg1",
+                    "comment": "From HTML template"
+                },
+                {
+                    "id": "arg2",
+                    "string": "%[2]s",
+                    "type": "string",
+                    "underlyingType": "string",
+                    "argNum": 2,
+                    "expr": "arg2",
+                    "comment": "From HTML template"
+                }
+            ],
+            "fuzzy": true
+        },
+        {
+            "id": "Please save this password in your VPN client settings now. \u003cspan class=\\\"text-red-500\\\"\u003eYou will not be able to view it again later\u003c/span\u003e.",
+            "message": "Please save this password in your VPN client settings now. \u003cspan class=\\\"text-red-500\\\"\u003eYou will not be able to view it again later\u003c/span\u003e.",
+            "translation": "Please save this password in your VPN client settings now. \u003cspan class=\\\"text-red-500\\\"\u003eYou will not be able to view it again later\u003c/span\u003e.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "VPN: Create Password Fail",
+            "message": "VPN: Create Password Fail",
+            "translation": "VPN: Create Password Fail",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "\u003cspan class=\\\"text-red-500\\\"\u003eFailed\u003c/span\u003e to create password. Try to start over.",
+            "message": "\u003cspan class=\\\"text-red-500\\\"\u003eFailed\u003c/span\u003e to create password. Try to start over.",
+            "translation": "\u003cspan class=\\\"text-red-500\\\"\u003eFailed\u003c/span\u003e to create password. Try to start over.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "VPN: Email Sent",
+            "message": "VPN: Email Sent",
+            "translation": "VPN: Email Sent",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Wait for an Email",
+            "message": "Wait for an Email",
+            "translation": "Wait for an Email",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Within a few minutes you will receive an email with a create password hyperlink.",
+            "message": "Within a few minutes you will receive an email with a create password hyperlink.",
+            "translation": "Within a few minutes you will receive an email with a create password hyperlink.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "VPN: Self Service",
+            "message": "VPN: Self Service",
+            "translation": "VPN: Self Service",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Create a New Password",
+            "message": "Create a New Password",
+            "translation": "Create a New Password",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eYour email address\u003c/span\u003e",
+            "message": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eYour email address\u003c/span\u003e",
+            "translation": "\u003ci class=\\\"fa-solid fa-at text-red-500\\\" aria-hidden=\\\"true\\\"\u003e\u003c/i\u003e\u0026nbsp;\u003cspan class=\\\"font-semibold\\\"\u003eYour email address\u003c/span\u003e",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Create Password Now!",
+            "message": "Create Password Now!",
+            "translation": "Create Password Now!",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "Create your VPN password via an email with a \u003cspan class=\\\"text-red-500\\\"\u003ehyperlink\u003c/span\u003e.",
+            "message": "Create your VPN password via an email with a \u003cspan class=\\\"text-red-500\\\"\u003ehyperlink\u003c/span\u003e.",
+            "translation": "Create your VPN password via an email with a \u003cspan class=\\\"text-red-500\\\"\u003ehyperlink\u003c/span\u003e.",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        }
+    ]
+}

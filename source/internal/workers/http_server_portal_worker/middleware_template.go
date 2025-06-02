@@ -1,19 +1,19 @@
 package http_server_portal_worker
 
 import (
-	"crypto/rand"
 	"errors"
 	"fmt"
 	"html/template"
 	"io"
-	"net"
 	"net/http"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/triflesoft/portalswan/internal/adapters/adapters"
 
 	"golang.org/x/text/language"
+	"golang.org/x/text/message"
 )
 
 var webuiTemplateNames = []string{
@@ -38,6 +38,20 @@ type TemplateHandlerFunc func(r *http.Request, csrf string, bcp47Tags []language
 func getBcp47TagsFromRequest(w http.ResponseWriter, r *http.Request) []language.Tag {
 	tagWeights := map[language.Tag]float32{
 		language.English: 0.1,
+	}
+
+	acceptLanguageHeaderValues := r.Header["Accept-Language"]
+
+	if (acceptLanguageHeaderValues != nil) && (len(acceptLanguageHeaderValues) >= 0) && (acceptLanguageHeaderValues[0] != "") {
+		for _, headerValue := range acceptLanguageHeaderValues {
+			tags, weights, err := language.ParseAcceptLanguage(headerValue)
+
+			if err == nil && (len(tags) == len(weights)) {
+				for tagIndex, tag := range tags {
+					tagWeights[tag] = weights[tagIndex]
+				}
+			}
+		}
 	}
 
 	cookie, err := r.Cookie("bcp47tag")
@@ -72,125 +86,23 @@ func getBcp47TagsFromRequest(w http.ResponseWriter, r *http.Request) []language.
 		}
 	}
 
-	acceptLanguageHeaderValues := r.Header["Accept-Language"]
+	tags := make([]language.Tag, 0, len(tagWeights))
 
-	if (acceptLanguageHeaderValues != nil) && (len(acceptLanguageHeaderValues) >= 0) && (acceptLanguageHeaderValues[0] != "") {
-		for _, headerValue := range acceptLanguageHeaderValues {
-			tags, weights, err := language.ParseAcceptLanguage(headerValue)
-
-			if err == nil && (len(tags) == len(weights)) {
-				for tagIndex, tag := range tags {
-					tagWeights[tag] = weights[tagIndex]
-				}
-			}
-		}
+	for tag := range tagWeights {
+		tags = append(tags, tag)
 	}
 
-	bcp47Tags := make([]language.Tag, 0, len(tagWeights))
-
-	for bcp47Tag := range tagWeights {
-		bcp47Tags = append(bcp47Tags, bcp47Tag)
-	}
-
-	sort.SliceStable(bcp47Tags, func(i, j int) bool {
-		return tagWeights[bcp47Tags[i]] > tagWeights[bcp47Tags[j]]
+	sort.SliceStable(tags, func(i, j int) bool {
+		return tagWeights[tags[i]] > tagWeights[tags[j]]
 	})
 
-	return bcp47Tags
-}
-
-type csrfData struct {
-	Nonce     []byte
-	IpAddress string
-}
-
-func (sc *httpServerPortalContext) csrfMiddleWare(innerHandler func(w http.ResponseWriter, r *http.Request, csrf string)) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		ws := sc.workerState
-		remoteAddr, _, err := net.SplitHostPort(r.RemoteAddr)
-
-		if err != nil {
-			logHttpRequest(ws, r, http.StatusInternalServerError, err)
-			http.Error(w, "", http.StatusInternalServerError)
-			return
-		}
-
-		r.RemoteAddr = remoteAddr
-
-		if (r.Method == http.MethodPost) || (r.Method == http.MethodPut) {
-			err := r.ParseForm()
-
-			if err != nil {
-				logHttpRequest(ws, r, http.StatusInternalServerError, err)
-				http.Error(w, "", http.StatusInternalServerError)
-				return
-			}
-
-			csrfFormValue := r.Form.Get("csrf")
-			csrfFormData := &csrfData{
-				Nonce:     []byte("<NULL>"),
-				IpAddress: "<NULL>",
-			}
-			err = decryptToken(sc.workerState.AppState.LoggingAdapter, csrfFormValue, csrfFormData, 59*time.Minute)
-
-			if err != nil {
-				logHttpRequest(ws, r, http.StatusBadRequest, err)
-				http.Error(w, "", http.StatusBadRequest)
-				return
-			}
-
-			csrfCookie, err := r.Cookie("csrf")
-
-			if err != nil {
-				logHttpRequest(ws, r, http.StatusBadRequest, err)
-				http.Error(w, "", http.StatusBadRequest)
-				return
-			}
-
-			if csrfCookie.Value != csrfFormValue {
-				logHttpRequest(ws, r, http.StatusBadRequest, errors.New("CSRF token mismatch"))
-				http.Error(w, "", http.StatusBadRequest)
-				return
-			}
-
-			if csrfFormData.IpAddress != remoteAddr {
-				logHttpRequest(ws, r, http.StatusBadRequest, errors.New("IP mismatch"))
-				http.Error(w, "", http.StatusBadRequest)
-				return
-			}
-		}
-
-		csrfData := &csrfData{
-			Nonce:     make([]byte, 64),
-			IpAddress: r.RemoteAddr,
-		}
-
-		rand.Read(csrfData.Nonce)
-		csrfValue, err := encryptToken(sc.workerState.AppState.LoggingAdapter, csrfData)
-
-		if err != nil {
-			logHttpRequest(ws, r, http.StatusBadRequest, err)
-			http.Error(w, "", http.StatusBadRequest)
-			return
-		}
-
-		cookie := &http.Cookie{
-			Name:     "csrf",
-			Value:    csrfValue,
-			Expires:  time.Now().Add(24 * time.Hour),
-			HttpOnly: true,
-			Path:     "/",
-			Secure:   true,
-		}
-		http.SetCookie(w, cookie)
-		innerHandler(w, r, csrfValue)
-	}
+	return tags
 }
 
 type templateContext struct {
 	RemoteAddr string
 	Path       string
-	Bcp47Tag   language.Tag
+	Bcp47Tag   string
 	Form       any
 }
 
@@ -217,6 +129,10 @@ func (sc *httpServerPortalContext) loadTemplate(templateName string, bcp47Tags [
 func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr io.Writer, r *http.Request, templateName string, contextData any, bcp47Tags []language.Tag) error {
 	var err error
 
+	tagMatcher := language.NewMatcher([]language.Tag{language.English, language.Georgian, language.Russian})
+	tag, _, _ := tagMatcher.Match(bcp47Tags...)
+	localizedPrinter := message.NewPrinter(tag)
+
 	for _, bcp47Tag := range bcp47Tags {
 		templateCacheItem := sc.templateCache.Get(bcp47Tag)
 
@@ -234,8 +150,11 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 
 				for _, webuiTemplateName := range webuiTemplateNames {
 					tmplText := sc.loadTemplate(webuiTemplateName, bcp47Tags)
-					tmpl := template.New(webuiTemplateName)
-					tmpl, err := tmpl.Parse(webuiBaseText)
+					tmpl, err := template.New(webuiTemplateName).Funcs(template.FuncMap{
+						"l10n": func(format string, args ...any) template.HTML {
+							return template.HTML(strings.ReplaceAll(localizedPrinter.Sprintf(strings.ReplaceAll(format, "\"", "\\\""), args...), "\\\"", "\""))
+						},
+					}).Parse(webuiBaseText)
 
 					if err != nil {
 						l.LogErrorText("Failed to load base template", "err", err, "webuiTemplateName", webuiTemplateName)
@@ -257,6 +176,11 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 				for _, plainTemplateName := range plainTemplateNames {
 					tmplText := sc.loadTemplate(plainTemplateName, bcp47Tags)
 					tmpl := template.New(plainTemplateName)
+					tmpl = tmpl.Funcs(template.FuncMap{
+						"l10n": func(format string, args ...any) template.HTML {
+							return template.HTML(strings.ReplaceAll(localizedPrinter.Sprintf(strings.ReplaceAll(format, "\"", "\\\""), args...), "\\\"", "\""))
+						},
+					})
 					tmpl, err = tmpl.Parse(tmplText)
 
 					if err != nil {
@@ -280,7 +204,7 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 				&templateContext{
 					RemoteAddr: r.RemoteAddr,
 					Path:       r.URL.Path,
-					Bcp47Tag:   bcp47Tag,
+					Bcp47Tag:   bcp47Tag.String(),
 					Form:       contextData,
 				})
 

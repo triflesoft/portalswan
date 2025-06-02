@@ -1,29 +1,29 @@
-{{ define "head_title" }}VPN: Home{{ end }}
+{{ define "head_title" }}{{ l10n "VPN: Home" }}{{ end }}
 {{ define "main-section" }}
             <div class="mb-8 lg:w-6/12 lg:float-left">
                 <img class="hidden collapse lg:block lg:visible" src="/static/img/large.png" alt="stringSwan Logo">
-                <p class="py-4 text-2xl text-gray-700">Open-source, modular and portable IPsec-based VPN solution</p>
+                <p class="py-4 text-2xl text-gray-700">{{ l10n "Open-source, modular and portable IPsec-based VPN solution" }}</p>
             </div>
             <div class="lg:w-5/12 lg:float-right">
                 <div class="mb-8 hidden collapsed" id="status-success" >
-                    <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500"><i class="fa-solid fa-shield-halved"></i> You are connected to VPN server</p>
+                    <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500">{{ l10n "<i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i>&nbsp;You are connected to VPN server" }}</p>
                     <div class="bg-white w-full p-4 border-b-3 border-x-3 border-gray-100">
                         <table class="w-full">
                             <thead>
                                 <tr>
                                     <th class="py-2 text-left text-red-500" id="verification-username"></th>
-                                    <th class="py-2 text-right">bytes</th>
-                                    <th class="py-2 text-right">packets</th>
+                                    <th class="py-2 text-right">{{ l10n "bytes" }}</th>
+                                    <th class="py-2 text-right">{{ l10n "packets" }}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th class="py-2 text-left">sent</th>
+                                    <th class="py-2 text-left">{{ l10n "sent" }}</th>
                                     <td class="py-2 text-right text-red-500" id="verification-client-to-server-bytes"></td>
                                     <td class="py-2 text-right text-red-500" id="verification-client-to-server-packets"></td>
                                 </tr>
                                 <tr>
-                                    <th class="py-2 text-left">received</th>
+                                    <th class="py-2 text-left">{{ l10n "received" }}</th>
                                     <td class="py-2 text-right text-red-500" id="verification-server-to-client-bytes"></td>
                                     <td class="py-2 text-right text-red-500" id="verification-server-to-client-packets"></td>
                                 </tr>
@@ -31,15 +31,13 @@
                         </table>
                     </div>
                     <p class="p-4 text-base text-gray-700 font-semibold rounded-b-md border-b-3 border-x-3 border-gray-100 bg-white">
-                        Your public IP address is <a href="https://ipinfo.io/{{ $.RemoteAddr }}" target=_blank class="cursor-pointer font-semibold text-gray-700 hover:text-red-500">{{ $.RemoteAddr }}</a><br>
-                        Your private IP address is <span class="font-semibold" id="verification-ip-address"></span>
+                        {{ l10n "Your public IP address is <a href=\"https://ipinfo.io/%[1]s\" target=_blank class=\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\">%[1]s</a>" $.RemoteAddr }}<br>
+                        {{ l10n "Your private IP address is <span class=\"font-semibold\" id=\"verification-ip-address\"></span>" }}
                     </p>
                 </div>
                 <div class="mb-8 hidden collapsed" id="status-failure">
-                    <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500"><i class="fa-solid fa-dumpster-fire"></i> You are not connected to VPN server</p>
-                    <p class="p-4 text-base text-gray-700 font-semibold rounded-b-md border-b-3 border-x-3 border-gray-100 bg-white">
-                        Forgot password or IP address changed? Use <a href="/self-service/" class="cursor-pointer font-semibold text-gray-700 hover:text-red-500">Self-Service</a> page to create a new password.
-                    </p>
+                    <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500">{{ l10n "<i class=\"fa-solid fa-dumpster-fire\" aria-hidden=\"true\"></i>&nbsp;You are not connected to VPN server" }}</p>
+                    <p class="p-4 text-base text-gray-700 font-semibold rounded-b-md border-b-3 border-x-3 border-gray-100 bg-white">{{ l10n "Forgot password or IP address changed? Use <a href=\"/self-service/\" class=\"cursor-pointer font-semibold text-gray-700 hover:text-red-500\">Self-Service</a> page to create a new password." }}</p>
                 </div>
             </div>
 <script>
@@ -62,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function formatBytes(value) {
         if (value == 0) {
-            return "N/A";
+            return "{{ l10n "N/A" }}";
         }
 
         if (value < 2 * 1024) {
@@ -70,19 +68,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (value < 2 * 1024 * 1024) {
-            return Math.ceil(value / 1024).toString() + " Kb";
+            return Math.ceil(value / 1024).toString() + " {{ l10n "Kb" }}";
         }
 
         if (value < 2 * 1024 * 1024 * 1024) {
-            return Math.ceil(value / (1024 * 1024)).toString() + " Mb";
+            return Math.ceil(value / (1024 * 1024)).toString() + " {{ l10n "Mb" }}";
         }
 
-        return Math.ceil(value / (1024 * 1024 * 1024)).toString() + " Gb";
+        return Math.ceil(value / (1024 * 1024 * 1024)).toString() + " {{ l10n "Gb" }}";
     }
 
     function formatPackets(value) {
         if (value == 0) {
-            return "N/A";
+            return "{{ l10n "N/A" }}";
         }
 
         if (value < 2000) {
@@ -90,14 +88,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (value < 2000000) {
-            return Math.ceil(value / 1000).toString() + "K";
+            return Math.ceil(value / 1000).toString() + "{{ l10n "K" }}";
         }
 
         if (value < 2000000000) {
-            return Math.ceil(value / 1000000).toString() + "M";
+            return Math.ceil(value / 1000000).toString() + "{{ l10n "M" }}";
         }
 
-        return Math.ceil(value / 1000000000).toString() + "G";
+        return Math.ceil(value / 1000000000).toString() + "{{ l10n "G" }}";
     }
 
     async function verifyConnection() {

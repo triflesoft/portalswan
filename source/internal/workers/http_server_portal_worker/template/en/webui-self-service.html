@@ -1,25 +1,23 @@
-{{ define "head_title" }}VPN: Self Service{{ end }}
+{{ define "head_title" }}{{ l10n "VPN: Self Service" }}{{ end }}
 {{ define "main-section" }}
             <div class="mb-8 lg:w-6/12 lg:float-left">
                 <img class="hidden collapse lg:block lg:visible" src="/static/img/large.png" alt="stringSwan Logo">
-                <p class="py-4 text-2xl text-gray-700">Open-source, modular and portable IPsec-based VPN solution</p>
+                <p class="py-4 text-2xl text-gray-700">{{ l10n "Open-source, modular and portable IPsec-based VPN solution" }}</p>
             </div>
             <div class="lg:w-5/12 lg:float-right">
                 <div class="mb-8">
                     <form method="POST">
-                        <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500">Create a New Password</p>
+                        <p class="p-4 text-2xl text-white font-bold rounded-t-md bg-red-500">{{ l10n "Create a New Password" }}</p>
                         <p class="relative bg-white px-4 pt-8 pb-4 text-base text-gray-700 border-x-3 border-gray-100">
                             <input name="action" type="hidden" value="create-password">
                             <input name="csrf" type="hidden" value="{{ $.Form.CSRF }}">
                             <input class="peer h-8 w-full px-2 border-b-2 bg-gray-50 border-gray-100 text-gray-900 placeholder-transparent focus:placeholder:text-gray-200 focus:outline-hidden focus:border-red-500 read-only:text-gray-500" id="create-password-email" name="email" type="email" value="" placeholder="name@example.com">
-                            <label class="absolute select-none transition-all text-base left-2 top-2 text-gray-500 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-5 peer-placeholder-shown:top-9 peer-focus:left-2 peer-focus:top-2 peer-focus:text-gray-500 peer-focus:text-sm" for="create-password-email">
-                                <i class="fa-solid fa-at text-red-500" aria-hidden="true"></i>&nbsp;<span class="font-semibold">Your email address</span>
-                            </label>
+                            <label class="absolute select-none transition-all text-base left-2 top-2 text-gray-500 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:left-5 peer-placeholder-shown:top-9 peer-focus:left-2 peer-focus:top-2 peer-focus:text-gray-500 peer-focus:text-sm" for="create-password-email">{{ l10n "<i class=\"fa-solid fa-at text-red-500\" aria-hidden=\"true\"></i>&nbsp;<span class=\"font-semibold\">Your email address</span>" }}</label>
                         </p>
                         <p class="flex justify-end bg-white p-4 text-base text-gray-700 border-b-3 border-x-3 border-gray-100">
-                            <button type="submit" class="block select-none px-6 py-2 bg-gray-700 outline-2 outline-gray-700 text-white font-semibold whitespace-nowrap hover:bg-red-500 hover:outline-red-500 hover:text-white">Create Password Now!</button>
+                            <button type="submit" class="block select-none px-6 py-2 bg-gray-700 outline-2 outline-gray-700 text-white font-semibold whitespace-nowrap hover:bg-red-500 hover:outline-red-500 hover:text-white">{{ l10n "Create Password Now!" }}</button>
                         </p>
-                        <p class="p-4 text-base text-gray-700 font-semibold rounded-b-md border-b-3 border-x-3 border-gray-100 bg-white">Create your VPN password via an email with a <span class="text-red-500">hyperlink</span>.</p>
+                        <p class="p-4 text-base text-gray-700 font-semibold rounded-b-md border-b-3 border-x-3 border-gray-100 bg-white">{{ l10n "Create your VPN password via an email with a <span class=\"text-red-500\">hyperlink</span>." }}</p>
                     </form>
                 </div>
             </div>
