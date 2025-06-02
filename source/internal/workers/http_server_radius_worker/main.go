@@ -3,9 +3,10 @@ package http_server_radius_worker
 import (
 	"context"
 	"net/http"
-	"portalswan/internal/state"
 	"sync/atomic"
 	"time"
+
+	"github.com/triflesoft/portalswan/internal/state"
 )
 
 type httpServerRadiusContext struct {

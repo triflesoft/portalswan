@@ -4,16 +4,16 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"portalswan/internal/adapters/adapters"
-	"portalswan/internal/adapters/aws_credentials_adapter"
-	"portalswan/internal/adapters/aws_email_adapter"
-	"portalswan/internal/adapters/aws_identity_adapter"
-	"portalswan/internal/adapters/aws_logs_adapter"
-	"portalswan/internal/settings"
 	"sync"
 	"sync/atomic"
 
 	"github.com/puzpuzpuz/xsync"
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
+	"github.com/triflesoft/portalswan/internal/adapters/aws_credentials_adapter"
+	"github.com/triflesoft/portalswan/internal/adapters/aws_email_adapter"
+	"github.com/triflesoft/portalswan/internal/adapters/aws_identity_adapter"
+	"github.com/triflesoft/portalswan/internal/adapters/aws_logs_adapter"
+	"github.com/triflesoft/portalswan/internal/settings"
 )
 
 type WorkerState struct {

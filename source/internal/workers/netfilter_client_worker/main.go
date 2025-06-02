@@ -6,8 +6,7 @@ import (
 	"github.com/puzpuzpuz/xsync"
 	"github.com/ti-mo/conntrack"
 	"github.com/ti-mo/netfilter"
-
-	"portalswan/internal/state"
+	"github.com/triflesoft/portalswan/internal/state"
 )
 
 func NetFilterWorker(ws *state.WorkerState) bool {

@@ -12,11 +12,9 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/identitystore"
 	identitystoreDocument "github.com/aws/aws-sdk-go-v2/service/identitystore/document"
 	identitystoreTypes "github.com/aws/aws-sdk-go-v2/service/identitystore/types"
-
-	"portalswan/internal/adapters/adapters"
-	"portalswan/internal/settings"
-
 	ttlcache "github.com/jellydator/ttlcache/v3"
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
+	"github.com/triflesoft/portalswan/internal/settings"
 )
 
 type awsGroup struct {

@@ -8,9 +8,10 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-	"portalswan/internal/adapters/adapters"
 	"strings"
 	"time"
+
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
 
 	"golang.org/x/text/language"
 )

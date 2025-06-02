@@ -3,8 +3,9 @@ package http_server_radius_worker
 import (
 	"encoding/hex"
 	"net/http"
-	"portalswan/internal/adapters/adapters"
 	"strings"
+
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
 )
 
 type radiusAttribute struct {

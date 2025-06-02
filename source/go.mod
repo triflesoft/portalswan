@@ -1,4 +1,4 @@
-module portalswan
+module github.com/triflesoft/portalswan
 
 go 1.23.6
 

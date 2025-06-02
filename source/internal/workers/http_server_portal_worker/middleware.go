@@ -8,9 +8,10 @@ import (
 	"io"
 	"net"
 	"net/http"
-	"portalswan/internal/adapters/adapters"
 	"sort"
 	"time"
+
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
 
 	"golang.org/x/text/language"
 )

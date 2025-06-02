@@ -8,11 +8,10 @@ import (
 	"os"
 	"time"
 
-	"portalswan/internal/settings"
-
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs"
 	cloudwatchlogsTypes "github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs/types"
+	"github.com/triflesoft/portalswan/internal/settings"
 )
 
 type cloudWatchLogsWriterHandler struct {

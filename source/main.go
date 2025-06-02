@@ -6,11 +6,11 @@ import (
 	"os/signal"
 	"syscall"
 
-	"portalswan/internal/state"
-	"portalswan/internal/workers/http_server_portal_worker"
-	"portalswan/internal/workers/http_server_radius_worker"
-	"portalswan/internal/workers/netfilter_client_worker"
-	"portalswan/internal/workers/vici_client_worker"
+	"github.com/triflesoft/portalswan/internal/state"
+	"github.com/triflesoft/portalswan/internal/workers/http_server_portal_worker"
+	"github.com/triflesoft/portalswan/internal/workers/http_server_radius_worker"
+	"github.com/triflesoft/portalswan/internal/workers/netfilter_client_worker"
+	"github.com/triflesoft/portalswan/internal/workers/vici_client_worker"
 )
 
 func main() {

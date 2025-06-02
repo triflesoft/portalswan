@@ -10,8 +10,6 @@ import (
 	"fmt"
 	"io"
 	"net/url"
-	"portalswan/internal/adapters/adapters"
-	"portalswan/internal/settings"
 	"strings"
 	"time"
 
@@ -19,6 +17,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/fernet/fernet-go"
 	"github.com/jellydator/ttlcache/v3"
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
+	"github.com/triflesoft/portalswan/internal/settings"
 	"golang.org/x/crypto/md4"
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"

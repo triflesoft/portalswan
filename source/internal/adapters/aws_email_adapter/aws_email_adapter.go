@@ -2,13 +2,13 @@ package aws_email_adapter
 
 import (
 	"context"
-	"portalswan/internal/adapters/adapters"
-	"portalswan/internal/settings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/sesv2"
 	sesv2Types "github.com/aws/aws-sdk-go-v2/service/sesv2/types"
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
+	"github.com/triflesoft/portalswan/internal/settings"
 )
 
 type awsEmailAdapter struct {

@@ -1,9 +1,8 @@
 package vici_client_worker
 
 import (
-	"portalswan/internal/state"
-
 	"github.com/strongswan/govici/vici"
+	"github.com/triflesoft/portalswan/internal/state"
 )
 
 const LogChannelName = "StrongSwanVici"

@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
-	"portalswan/internal/adapters/adapters"
-	"portalswan/internal/state"
 	"strings"
 	"time"
+
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
+	"github.com/triflesoft/portalswan/internal/state"
 
 	"github.com/fernet/fernet-go"
 	"golang.org/x/text/language"

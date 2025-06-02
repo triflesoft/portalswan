@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"portalswan/internal/state"
+
+	"github.com/triflesoft/portalswan/internal/state"
 )
 
 func (sc *httpServerRadiusContext) internalHttpRadiusHandle(w http.ResponseWriter, r *http.Request) {

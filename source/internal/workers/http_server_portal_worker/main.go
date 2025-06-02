@@ -9,10 +9,11 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-	"portalswan/internal/state"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/triflesoft/portalswan/internal/state"
 
 	"github.com/fernet/fernet-go"
 	ttlcache "github.com/jellydator/ttlcache/v3"

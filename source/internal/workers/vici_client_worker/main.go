@@ -3,9 +3,8 @@ package vici_client_worker
 import (
 	"time"
 
-	"portalswan/internal/state"
-
 	"github.com/strongswan/govici/vici"
+	"github.com/triflesoft/portalswan/internal/state"
 )
 
 func ViciWorker(ws *state.WorkerState) bool {

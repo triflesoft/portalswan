@@ -3,7 +3,7 @@ package netfilter_client_worker
 import (
 	"time"
 
-	"portalswan/internal/adapters/adapters"
+	"github.com/triflesoft/portalswan/internal/adapters/adapters"
 )
 
 const LogChannelName = "NetFilterConnectionTracking"
