@@ -16,13 +16,15 @@ jobs:
         goos: [linux]
         goarch: [amd64, arm64]
     steps:
-    - name: Checkout source code
+    - name: Checkout
       uses: actions/checkout@v4
 
-    - name: Set up Go compiler
-      uses: actions/setup-go@v4
+    - name: Setup
+      uses: actions/setup-go@v5
       with:
-        go-version: '1.23'
+        go-version: '>=1.23'
+        check-latest: true
+        cache-dependency-path: source/go.sum
 
     - name: Build
       env:
@@ -34,8 +36,25 @@ jobs:
         go mod tidy
         go build -v -o ../dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
 
-    - name: Release
+    - name: Upload
       uses: actions/upload-artifact@v4
       with:
         name: portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
         path: ./dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download
+      uses: actions/download-artifact@v4
+      with:
+        path: ./dist/
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ./dist/**/*
+        generate_release_notes: true
+        make_latest: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
