@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/fernet/fernet-go"
+	"golang.org/x/text/language"
 )
 
 const LogChannelName = "WebUI"
@@ -95,7 +96,7 @@ func decryptToken(loggingAdapter adapters.LoggingAdapter, encryptedText string, 
 	return json.Unmarshal(cleartextData, cleartext)
 }
 
-func (sc *httpServerPortalContext) renderTemplateToString(r *http.Request, templateName string, contextData any, bcp47Tags []string) string {
+func (sc *httpServerPortalContext) renderTemplateToString(r *http.Request, templateName string, contextData any, bcp47Tags []language.Tag) string {
 	ws := sc.workerState
 	log := ws.AppState.LoggingAdapter
 	bldr := strings.Builder{}

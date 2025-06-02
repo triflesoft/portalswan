@@ -11,6 +11,8 @@ import (
 	"portalswan/internal/adapters/adapters"
 	"strings"
 	"time"
+
+	"golang.org/x/text/language"
 )
 
 type webAccessToken struct {
@@ -38,7 +40,7 @@ type createPasswordDoneTemplateContext struct {
 	Password  template.HTML
 }
 
-func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Request, csrf string, bcp47Tags []string) (int, string, any, error) {
+func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Request, csrf string, bcp47Tags []language.Tag) (int, string, any, error) {
 	ws := sc.workerState
 	log := ws.AppState.LoggingAdapter
 
@@ -163,11 +165,11 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 	return http.StatusOK, "webui-self-service.html", templateContext, nil
 }
 
-func (sc *httpServerPortalContext) externalHttpsSelfServiceCreatePasswordSentHandler(r *http.Request, csrf string, bcp47Tags []string) (int, string, any, error) {
+func (sc *httpServerPortalContext) externalHttpsSelfServiceCreatePasswordSentHandler(r *http.Request, csrf string, bcp47Tags []language.Tag) (int, string, any, error) {
 	return http.StatusCreated, "webui-self-service-create-password-sent.html", nil, nil
 }
 
-func (sc *httpServerPortalContext) externalHttpsSelfServiceCreatePasswordDoneHandler(r *http.Request, csrf string, bcp47Tags []string) (int, string, any, error) {
+func (sc *httpServerPortalContext) externalHttpsSelfServiceCreatePasswordDoneHandler(r *http.Request, csrf string, bcp47Tags []language.Tag) (int, string, any, error) {
 	ws := sc.workerState
 	log := ws.AppState.LoggingAdapter
 	query := r.URL.Query()

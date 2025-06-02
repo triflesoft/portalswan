@@ -2,13 +2,15 @@ package http_server_portal_worker
 
 import (
 	"net/http"
+
+	"golang.org/x/text/language"
 )
 
 type indexTemplateContext struct {
 	PrivateHostname string
 }
 
-func (sc *httpServerPortalContext) externalHttpsIndexHandler(r *http.Request, csrf string, bcp47Tags []string) (int, string, any, error) {
+func (sc *httpServerPortalContext) externalHttpsIndexHandler(r *http.Request, csrf string, bcp47Tags []language.Tag) (int, string, any, error) {
 	if r.URL.Path != "/" {
 		return http.StatusNotFound, "webui-error.html", nil, nil
 	}

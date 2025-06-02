@@ -9,11 +9,10 @@ import (
 	"net"
 	"net/http"
 	"portalswan/internal/adapters/adapters"
-	"regexp"
 	"sort"
-	"strconv"
-	"strings"
 	"time"
+
+	"golang.org/x/text/language"
 )
 
 var webuiTemplateNames = []string{
@@ -33,40 +32,42 @@ var plainTemplateNames = []string{
 	"email-create-password-subject.txt",
 }
 
-type TemplateHandlerFunc func(r *http.Request, csrf string, bcp47Tags []string) (int, string, any, error)
+type TemplateHandlerFunc func(r *http.Request, csrf string, bcp47Tags []language.Tag) (int, string, any, error)
 
-var languageTagPattern = regexp.MustCompile(`^[a-z][a-z](?:-[A-Z][A-Z])?$`)
-
-func getBcp47TagsFromRequest(w http.ResponseWriter, r *http.Request) []string {
-	bcp47TagWeights := map[string]float64{
-		"en": 0.1,
+func getBcp47TagsFromRequest(w http.ResponseWriter, r *http.Request) []language.Tag {
+	tagWeights := map[language.Tag]float32{
+		language.English: 0.1,
 	}
+
+	cookie, err := r.Cookie("bcp47tag")
+
+	if (err == nil) && (cookie != nil) && (cookie.Value != "") {
+		cookieTag, err := language.Parse(cookie.Value)
+
+		if err == nil {
+			tagWeights[cookieTag] = 1.9
+		}
+	}
+
 	query := r.URL.Query()
-	bcp47TagQueryValue := query.Get("bcp47tag")
+	queryTagString := query.Get("bcp47tag")
 
-	if bcp47TagQueryValue != "" && languageTagPattern.MatchString(bcp47TagQueryValue) {
-		if currentWeight, exists := bcp47TagWeights[bcp47TagQueryValue]; !exists || 2.0 > currentWeight {
-			bcp47TagWeights[bcp47TagQueryValue] = 2.0
-		}
+	if queryTagString != "" {
+		queryTag, err := language.Parse(queryTagString)
 
-		cookie := &http.Cookie{
-			Name:     "bcp47tag",
-			Value:    bcp47TagQueryValue,
-			Expires:  time.Now().Add(30 * 24 * time.Hour),
-			HttpOnly: true,
-			Path:     "/",
-			Secure:   true,
-		}
-		http.SetCookie(w, cookie)
-	} else {
-		cookie, err := r.Cookie("bcp47tag")
+		if err == nil {
+			tagWeights[queryTag] = 2.0
 
-		if (err == nil) && (cookie != nil) {
-			if languageTagPattern.MatchString(cookie.Value) {
-				if currentWeight, exists := bcp47TagWeights[cookie.Value]; !exists || 1.9 > currentWeight {
-					bcp47TagWeights[cookie.Value] = 1.9
-				}
+			cookie := &http.Cookie{
+				Name:     "bcp47tag",
+				Value:    queryTag.String(),
+				Expires:  time.Now().Add(30 * 24 * time.Hour),
+				HttpOnly: true,
+				Path:     "/",
+				Secure:   true,
 			}
+
+			http.SetCookie(w, cookie)
 		}
 	}
 
@@ -74,38 +75,24 @@ func getBcp47TagsFromRequest(w http.ResponseWriter, r *http.Request) []string {
 
 	if (acceptLanguageHeaderValues != nil) && (len(acceptLanguageHeaderValues) >= 0) && (acceptLanguageHeaderValues[0] != "") {
 		for _, headerValue := range acceptLanguageHeaderValues {
-			for _, part := range strings.Split(headerValue, ",") {
-				segments := strings.SplitN(strings.TrimSpace(part), ";", 2)
-				tag := segments[0]
-				weight := 1.0
+			tags, weights, err := language.ParseAcceptLanguage(headerValue)
 
-				if len(segments) == 2 {
-					qPart := strings.TrimSpace(segments[1])
-
-					if strings.HasPrefix(qPart, "q=") {
-						if qVal, err := strconv.ParseFloat(qPart[2:], 64); err == nil {
-							weight = qVal
-						}
-					}
-				}
-
-				if currentWeight, exists := bcp47TagWeights[tag]; !exists || weight > currentWeight {
-					bcp47TagWeights[tag] = weight
+			if err == nil && (len(tags) == len(weights)) {
+				for tagIndex, tag := range tags {
+					tagWeights[tag] = weights[tagIndex]
 				}
 			}
 		}
 	}
 
-	bcp47Tags := make([]string, 0, len(bcp47TagWeights))
+	bcp47Tags := make([]language.Tag, 0, len(tagWeights))
 
-	for bcp47Tag := range bcp47TagWeights {
-		if languageTagPattern.MatchString(bcp47Tag) {
-			bcp47Tags = append(bcp47Tags, bcp47Tag)
-		}
+	for bcp47Tag := range tagWeights {
+		bcp47Tags = append(bcp47Tags, bcp47Tag)
 	}
 
 	sort.SliceStable(bcp47Tags, func(i, j int) bool {
-		return bcp47TagWeights[bcp47Tags[i]] > bcp47TagWeights[bcp47Tags[j]]
+		return tagWeights[bcp47Tags[i]] > tagWeights[bcp47Tags[j]]
 	})
 
 	return bcp47Tags
@@ -202,11 +189,11 @@ func (sc *httpServerPortalContext) csrfMiddleWare(innerHandler func(w http.Respo
 type templateContext struct {
 	RemoteAddr string
 	Path       string
-	Bcp47      string
+	Bcp47Tag   language.Tag
 	Form       any
 }
 
-func (sc *httpServerPortalContext) loadTemplate(templateName string, bcp47Tags []string) string {
+func (sc *httpServerPortalContext) loadTemplate(templateName string, bcp47Tags []language.Tag) string {
 	for _, bcp47Tag := range bcp47Tags {
 		f, err := sc.templateOFS.Open(fmt.Sprintf("%s/%s", bcp47Tag, templateName))
 
@@ -226,7 +213,7 @@ func (sc *httpServerPortalContext) loadTemplate(templateName string, bcp47Tags [
 	return ""
 }
 
-func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr io.Writer, r *http.Request, templateName string, contextData any, bcp47Tags []string) error {
+func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr io.Writer, r *http.Request, templateName string, contextData any, bcp47Tags []language.Tag) error {
 	var err error
 
 	for _, bcp47Tag := range bcp47Tags {
@@ -292,7 +279,7 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 				&templateContext{
 					RemoteAddr: r.RemoteAddr,
 					Path:       r.URL.Path,
-					Bcp47:      bcp47Tag,
+					Bcp47Tag:   bcp47Tag,
 					Form:       contextData,
 				})
 

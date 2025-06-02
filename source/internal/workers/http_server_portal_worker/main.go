@@ -16,13 +16,14 @@ import (
 
 	"github.com/fernet/fernet-go"
 	ttlcache "github.com/jellydator/ttlcache/v3"
+	"golang.org/x/text/language"
 )
 
 type httpServerPortalContext struct {
 	workerState     *state.WorkerState
 	webrootOFS      *overlayFS
 	templateOFS     *overlayFS
-	templateCache   *ttlcache.Cache[string, map[string]*template.Template]
+	templateCache   *ttlcache.Cache[language.Tag, map[string]*template.Template]
 	tokenCache      *ttlcache.Cache[string, bool]
 	tokenKey        *fernet.Key
 	privateHostname string
@@ -86,7 +87,7 @@ func HttpServerPortalWorker(ws *state.WorkerState) bool {
 		workerState:     ws,
 		webrootOFS:      webrootOFS,
 		templateOFS:     templateOFS,
-		templateCache:   ttlcache.New(ttlcache.WithTTL[string, map[string]*template.Template](1 * time.Minute)),
+		templateCache:   ttlcache.New(ttlcache.WithTTL[language.Tag, map[string]*template.Template](1 * time.Minute)),
 		tokenCache:      ttlcache.New(ttlcache.WithTTL[string, bool](120 * time.Minute)),
 		tokenKey:        &fernet.Key{},
 		privateHostname: serverSettings.VerificationHostname,
