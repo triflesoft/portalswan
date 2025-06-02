@@ -1,0 +1,41 @@
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+
+name: Build and Release
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux]
+        goarch: [amd64, arm64]
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v4
+
+    - name: Set up Go compiler
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23'
+
+    - name: Build
+      env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+      run: |
+        mkdir -p ./dist/
+        cd ./source/
+        go mod tidy
+        go build -v -o ../dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
+
+    - name: Release
+      uses: actions/upload-artifact@v4
+      with:
+        name: portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
+        path: ./dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
