@@ -36,9 +36,7 @@ jobs:
           GOARM: ${{ matrix.goarm }}
       run: |
         mkdir -p ./dist/
-        cd ./source/
-        go mod tidy
-        go build -a -v -o -trimpath ../dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
+        go build -C ./source/ -a -v -o -trimpath ./dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
 
     - name: Upload
       uses: actions/upload-artifact@v4
