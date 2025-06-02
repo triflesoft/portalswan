@@ -28,7 +28,7 @@ jobs:
       with:
         go-version: '>=1.23'
         check-latest: true
-        cache-dependency-path: source/go.sum
+        cache-dependency-path: ./source/go.sum
 
     - name: Build
       env:
@@ -39,7 +39,7 @@ jobs:
         mkdir -p ./dist/
         cd ./source/
         go mod tidy
-        go build -v -o ../dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
+        go build -a -v -o -trimpath ../dist/portalswan-${{ matrix.goos }}-${{ matrix.goarch }}
 
     - name: Upload
       uses: actions/upload-artifact@v4
