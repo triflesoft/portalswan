@@ -6,9 +6,9 @@ require (
 	github.com/aws/aws-sdk-go-v2 v1.36.3
 	github.com/aws/aws-sdk-go-v2/config v1.29.14
 	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.16.30
-	github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.49.0
-	github.com/aws/aws-sdk-go-v2/service/identitystore v1.28.2
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.79.3
+	github.com/aws/aws-sdk-go-v2/service/cloudwatchlogs v1.50.0
+	github.com/aws/aws-sdk-go-v2/service/identitystore v1.28.3
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.80.0
 	github.com/aws/aws-sdk-go-v2/service/secretsmanager v1.35.4
 	github.com/aws/aws-sdk-go-v2/service/sesv2 v1.45.0
 	github.com/fernet/fernet-go v0.0.0-20240119011108-303da6aec611
@@ -29,7 +29,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/internal/ini v1.8.3 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/v4a v1.3.34 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.12.3 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.7.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.7.2 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.12.15 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.18.15 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.25.3 // indirect
@@ -41,7 +41,9 @@ require (
 	github.com/mdlayher/netlink v1.7.2 // indirect
 	github.com/mdlayher/socket v0.5.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/net v0.40.0 // indirect
 	golang.org/x/sync v0.14.0 // indirect
 	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/tools v0.33.0 // indirect
 )
