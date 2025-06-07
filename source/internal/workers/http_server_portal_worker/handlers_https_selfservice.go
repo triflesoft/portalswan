@@ -91,7 +91,7 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 
 			{
 				zipWriter := zip.NewWriter(zipData)
-				linuxWriter, err := zipWriter.Create(fmt.Sprintf("VPN-Linux-[%s].sh", r.Host))
+				linuxWriter, err := zipWriter.Create(fmt.Sprintf("VPN-Linux-[%s].sh_REMOVE_ME", r.Host))
 
 				if err != nil {
 					log.LogErrorText("Failed to create ZIP file", "err", err, "remoteIpAddress", r.RemoteAddr)
@@ -107,7 +107,7 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 					return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 				}
 
-				windowsWriter, err := zipWriter.Create(fmt.Sprintf("VPN-Windows-[%s].ps1", r.Host))
+				windowsWriter, err := zipWriter.Create(fmt.Sprintf("VPN-Windows-[%s].ps1_REMOVE_ME", r.Host))
 
 				if err != nil {
 					log.LogErrorText("Failed to create ZIP file", "err", err, "remoteIpAddress", r.RemoteAddr)
