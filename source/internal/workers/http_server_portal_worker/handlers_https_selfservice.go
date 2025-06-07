@@ -87,7 +87,6 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 			bodyHtml := sc.renderTemplateToString(r, "email-create-password-body.html", templateContext, bcp47Tags)
 			linuxSetupScriptContents := []byte(sc.renderTemplateToString(r, "email-create-password-attachment-vpn-setup-linux.sh", templateContext, bcp47Tags))
 			windowsSetupScriptContents := []byte(sc.renderTemplateToString(r, "email-create-password-attachment-vpn-setup-windows.ps1", templateContext, bcp47Tags))
-
 			zipData := &bytes.Buffer{}
 
 			{
