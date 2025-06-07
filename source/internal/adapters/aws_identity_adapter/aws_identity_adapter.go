@@ -141,7 +141,7 @@ func (a *awsIdentityAdapter) selectAwsUser(f *identitystoreClientFactory, awsUse
 		}
 	}
 
-	email := ""
+	email := *describeUserOutput.UserName
 
 	for _, value := range describeUserOutput.Emails {
 		if value.Primary {
