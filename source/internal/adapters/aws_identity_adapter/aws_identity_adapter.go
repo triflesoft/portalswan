@@ -79,19 +79,39 @@ func (a *awsIdentityAdapter) selectAwsUserId(f *identitystoreClientFactory, user
 			IdentityStoreId: &a.settings.IdentityStoreId,
 			AlternateIdentifier: &identitystoreTypes.AlternateIdentifierMemberUniqueAttribute{
 				Value: identitystoreTypes.UniqueAttribute{
+					AttributePath:  aws.String("username"),
+					AttributeValue: identitystoreDocument.NewLazyDocument(username),
+				},
+			},
+		})
+
+	if err == nil {
+		a.awsUserIdCache.Set(username, *userIdOutput.UserId, ttlcache.DefaultTTL)
+		return *userIdOutput.UserId
+	}
+
+	a.log.LogErrorText("Failed to get AWS Identity Center user ID by username", "err", err, "username", username)
+
+	userIdOutput, err = f.GetIdentitystoreClient().GetUserId(
+		f.Ctx,
+		&identitystore.GetUserIdInput{
+			IdentityStoreId: &a.settings.IdentityStoreId,
+			AlternateIdentifier: &identitystoreTypes.AlternateIdentifierMemberUniqueAttribute{
+				Value: identitystoreTypes.UniqueAttribute{
 					AttributePath:  aws.String("emails.value"),
 					AttributeValue: identitystoreDocument.NewLazyDocument(username),
 				},
 			},
 		})
 
-	if err != nil {
-		a.log.LogErrorText("Failed to get AWS Identity Center user ID by username", "err", err, "username", username)
-
-		return ""
+	if err == nil {
+		a.awsUserIdCache.Set(username, *userIdOutput.UserId, ttlcache.DefaultTTL)
+		return *userIdOutput.UserId
 	}
 
-	return *userIdOutput.UserId
+	a.log.LogErrorText("Failed to get AWS Identity Center user ID by email", "err", err, "username", username)
+
+	return ""
 }
 
 func (a *awsIdentityAdapter) selectAwsUser(f *identitystoreClientFactory, awsUserId string) *awsUser {
