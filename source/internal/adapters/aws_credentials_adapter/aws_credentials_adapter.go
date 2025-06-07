@@ -97,6 +97,10 @@ func (a *awsCredentialsAdapter) getCredentials(ctx context.Context, s3Client *s3
 		return nil
 	}
 
+	if credentials.NtPasswords == nil {
+		credentials.NtPasswords = map[string]string{}
+	}
+
 	if credentials.AccessTimes == nil {
 		credentials.AccessTimes = map[string]int64{}
 	}
@@ -240,6 +244,7 @@ func (a *awsCredentialsAdapter) UpdateNtPassword(vpnUser *adapters.VpnUser, ipAd
 		credentials = &vpnUserCredentials{
 			Username:    vpnUser.Username,
 			NtPasswords: map[string]string{},
+			AccessTimes: map[string]int64{},
 		}
 	}
 
