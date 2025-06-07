@@ -52,6 +52,7 @@ func (f *identitystoreClientFactory) GetIdentitystoreClient() *identitystore.Cli
 
 			f.client = identitystore.NewFromConfig(awsConfig)
 		})
+
 	return f.client
 }
 
@@ -70,6 +71,8 @@ func (a *awsIdentityAdapter) selectAwsUserId(f *identitystoreClientFactory, user
 	userIdCacheItem := a.awsUserIdCache.Get(username)
 
 	if userIdCacheItem != nil {
+		a.log.LogDebugText("Found AWS user ID in cache", "username", username, "user_id", userIdCacheItem.Value())
+
 		return userIdCacheItem.Value()
 	}
 
@@ -87,6 +90,8 @@ func (a *awsIdentityAdapter) selectAwsUserId(f *identitystoreClientFactory, user
 
 	if err == nil {
 		a.awsUserIdCache.Set(username, *userIdOutput.UserId, ttlcache.DefaultTTL)
+		a.log.LogDebugText("Found AWS user ID by username", "username", username, "user_id", *userIdOutput.UserId)
+
 		return *userIdOutput.UserId
 	}
 
@@ -106,6 +111,8 @@ func (a *awsIdentityAdapter) selectAwsUserId(f *identitystoreClientFactory, user
 
 	if err == nil {
 		a.awsUserIdCache.Set(username, *userIdOutput.UserId, ttlcache.DefaultTTL)
+		a.log.LogDebugText("Found AWS user ID by email", "email", username, "user_id", *userIdOutput.UserId)
+
 		return *userIdOutput.UserId
 	}
 
@@ -118,6 +125,16 @@ func (a *awsIdentityAdapter) selectAwsUser(f *identitystoreClientFactory, awsUse
 	userCacheItem := a.awsUserCache.Get(awsUserId)
 
 	if userCacheItem != nil {
+		a.log.LogDebugText(
+			"Found AWS Identity Center user in cache",
+			"user_id", awsUserId,
+			"user_id", userCacheItem.Value().UserId,
+			"external_id", userCacheItem.Value().ExternalId,
+			"username", userCacheItem.Value().Username,
+			"email", userCacheItem.Value().Email,
+			"display_name", userCacheItem.Value().DisplayName,
+		)
+
 		return userCacheItem.Value()
 	}
 
@@ -158,6 +175,14 @@ func (a *awsIdentityAdapter) selectAwsUser(f *identitystoreClientFactory, awsUse
 	}
 
 	a.awsUserCache.Set(awsUserId, awsUser, ttlcache.DefaultTTL)
+	a.log.LogDebugText(
+		"Found AWS Identity Center user",
+		"user_id", awsUser.UserId,
+		"external_id", awsUser.ExternalId,
+		"username", awsUser.Username,
+		"email", awsUser.Email,
+		"display_name", awsUser.DisplayName,
+	)
 
 	return awsUser
 }
@@ -166,6 +191,14 @@ func (a *awsIdentityAdapter) selectAwsGroup(f *identitystoreClientFactory, awsGr
 	groupCacheItem := a.awsGroupCache.Get(awsGroupId)
 
 	if groupCacheItem != nil {
+		a.log.LogDebugText(
+			"Found AWS Identity Center group in cache",
+			"group_id", awsGroupId,
+			"group_id", groupCacheItem.Value().GroupId,
+			"external_id", groupCacheItem.Value().ExternalId,
+			"display_name", groupCacheItem.Value().DisplayName,
+		)
+
 		return groupCacheItem.Value()
 	}
 
@@ -196,6 +229,13 @@ func (a *awsIdentityAdapter) selectAwsGroup(f *identitystoreClientFactory, awsGr
 	}
 
 	a.awsGroupCache.Set(awsGroupId, awsGroup, ttlcache.DefaultTTL)
+	a.log.LogDebugText(
+		"Found AWS Identity Center group in cache",
+		"group_id", awsGroupId,
+		"group_id", awsGroup.GroupId,
+		"external_id", awsGroup.ExternalId,
+		"display_name", awsGroup.DisplayName,
+	)
 
 	return awsGroup
 }
@@ -204,6 +244,12 @@ func (a *awsIdentityAdapter) selectAwsUserGroupIds(f *identitystoreClientFactory
 	userGroupCacheItem := a.awsUserGroupCache.Get(awsUserId)
 
 	if userGroupCacheItem != nil {
+		a.log.LogDebugText(
+			"Found AWS Identity Center memberships in cache",
+			"user_id", awsUserId,
+			"group_ids", strings.Join(userGroupCacheItem.Value(), ", "),
+		)
+
 		return userGroupCacheItem.Value()
 	}
 
@@ -228,6 +274,13 @@ func (a *awsIdentityAdapter) selectAwsUserGroupIds(f *identitystoreClientFactory
 		awsGroupIds = append(awsGroupIds, *value.GroupId)
 	}
 
+	a.awsUserGroupCache.Set(awsUserId, awsGroupIds, ttlcache.DefaultTTL)
+	a.log.LogDebugText(
+		"Found AWS Identity Center memberships",
+		"user_id", awsUserId,
+		"group_ids", strings.Join(awsGroupIds, ", "),
+	)
+
 	return awsGroupIds
 }
 
@@ -235,6 +288,14 @@ func (a *awsIdentityAdapter) SelectVpnUser(username string) *adapters.VpnUser {
 	vpnUserCacheItem := a.vpnUserCache.Get(username)
 
 	if vpnUserCacheItem != nil {
+		a.log.LogDebugText(
+			"Found VPN user in cache",
+			"username", username,
+			"username", vpnUserCacheItem.Value().Username,
+			"email", vpnUserCacheItem.Value().Email,
+			"class", vpnUserCacheItem.Value().Class,
+		)
+
 		return vpnUserCacheItem.Value()
 	}
 
@@ -283,6 +344,13 @@ func (a *awsIdentityAdapter) SelectVpnUser(username string) *adapters.VpnUser {
 	}
 
 	a.vpnUserCache.Set(username, vpnUser, ttlcache.DefaultTTL)
+	a.log.LogDebugText(
+		"Found VPN user",
+		"username", username,
+		"username", vpnUser.Username,
+		"email", vpnUser.Email,
+		"class", vpnUser.Class,
+	)
 
 	return vpnUser
 }

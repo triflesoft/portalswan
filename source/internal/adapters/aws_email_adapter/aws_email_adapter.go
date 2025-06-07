@@ -12,9 +12,8 @@ import (
 )
 
 type awsEmailAdapter struct {
-	settings        *settings.AppEmailAwsSettings
-	log             adapters.LoggingAdapter
-	boundaryCounter int64
+	settings *settings.AppEmailAwsSettings
+	log      adapters.LoggingAdapter
 }
 
 func (a *awsEmailAdapter) SendEmail(recipientAddress string, subject string, bodyText string, bodyHtml string, attachments map[string]adapters.EmailAttachment) {
@@ -33,7 +32,6 @@ func (a *awsEmailAdapter) SendEmail(recipientAddress string, subject string, bod
 	}
 
 	sesv2Client := sesv2.NewFromConfig(awsConfig)
-
 	sesAttachments := make([]sesv2Types.Attachment, 0, len(attachments))
 
 	for name, attachment := range attachments {
@@ -90,6 +88,8 @@ func (a *awsEmailAdapter) SendEmail(recipientAddress string, subject string, bod
 		a.log.LogErrorText("Failed to send email", "err", err, "recipientAddress", recipientAddress, "subject", subject)
 		return
 	}
+
+	a.log.LogDebugText("Sent email", "recipientAddress", recipientAddress, "subject", subject)
 }
 
 func NewAwsEmailAdapter(s *settings.AppEmailAwsSettings, l adapters.LoggingAdapter) *awsEmailAdapter {
