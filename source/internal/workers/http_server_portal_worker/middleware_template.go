@@ -157,7 +157,10 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 					}).Parse(webuiBaseText)
 
 					if err != nil {
-						l.LogErrorText("Failed to load base template", "err", err, "webuiTemplateName", webuiTemplateName)
+						l.LogErrorText(
+							"Failed to load base template",
+							"err", err,
+							"webuiTemplateName", webuiTemplateName)
 
 						return err
 					}
@@ -165,7 +168,10 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 					tmpl, err = tmpl.Parse(tmplText)
 
 					if err != nil {
-						l.LogErrorText("Failed to load template", "err", err, "webuiTemplateName", webuiTemplateName)
+						l.LogErrorText(
+							"Failed to load template",
+							"err", err,
+							"webuiTemplateName", webuiTemplateName)
 
 						return err
 					}
@@ -184,7 +190,10 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 					tmpl, err = tmpl.Parse(tmplText)
 
 					if err != nil {
-						l.LogErrorText("Failed to load template", "err", err, "plainTemplateName", plainTemplateName)
+						l.LogErrorText(
+							"Failed to load template",
+							"err", err,
+							"plainTemplateName", plainTemplateName)
 
 						return err
 					}
@@ -209,7 +218,10 @@ func (sc *httpServerPortalContext) renderTemplate(l adapters.LoggingAdapter, wr 
 				})
 
 			if err != nil {
-				l.LogErrorText("Failed to render template", "err", err, "templateName", templateName)
+				l.LogErrorText(
+					"Failed to render template",
+					"err", err,
+					"templateName", templateName)
 			} else {
 				return nil
 			}

@@ -74,34 +74,76 @@ func (a *awsCredentialsAdapter) getCredentials(ctx context.Context, s3Client *s3
 		})
 
 	if err != nil {
-		a.log.LogErrorText("Failed to get S3 object", "err", err, "s3BucketName", a.settings.S3BucketName, "objectKey", objectKey, "username", username)
+		a.log.LogErrorText(
+			"Failed to get S3 object",
+			"err", err,
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username)
 
 		return nil
 	}
+
+	a.log.LogDebugText(
+		"Got S3 object",
+		"s3BucketName", a.settings.S3BucketName,
+		"objectKey", objectKey,
+		"username", username)
 
 	objectData, err := io.ReadAll(objectOutput.Body)
 
 	if err != nil {
-		a.log.LogErrorText("Failed to read S3 object body", "err", err, "s3BucketName", a.settings.S3BucketName, "objectKey", objectKey, "username", username)
+		a.log.LogErrorText(
+			"Failed to read S3 object body",
+			"err", err,
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username)
 
 		return nil
 	}
 
-	credentials := vpnUserCredentials{}
+	a.log.LogDebugText(
+		"Read S3 object",
+		"s3BucketName", a.settings.S3BucketName,
+		"objectKey", objectKey,
+		"username", username)
 
+	credentials := vpnUserCredentials{}
 	err = a.decryptJsonFromBytes(objectData, &credentials, 0)
 
 	if err != nil {
-		a.log.LogErrorText("Failed to decrypt credentials", "err", err, "s3BucketName", a.settings.S3BucketName, "objectKey", objectKey, "username", username)
+		a.log.LogErrorText(
+			"Failed to decrypt credentials",
+			"err", err,
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username)
 
 		return nil
 	}
 
+	a.log.LogDebugText(
+		"Decrypted credentials",
+		"s3BucketName", a.settings.S3BucketName,
+		"objectKey", objectKey,
+		"username", username)
+
 	if credentials.NtPasswords == nil {
+		a.log.LogDebugText(
+			"Credentials are missing nt_passwords attribute, creating new blank",
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username)
 		credentials.NtPasswords = map[string]string{}
 	}
 
 	if credentials.AccessTimes == nil {
+		a.log.LogDebugText(
+			"Credentials are missing access_times attribute, creating new blank",
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username)
 		credentials.AccessTimes = map[string]int64{}
 	}
 
@@ -109,12 +151,30 @@ func (a *awsCredentialsAdapter) getCredentials(ctx context.Context, s3Client *s3
 
 	for ipAddress, accessTime := range credentials.AccessTimes {
 		if accessTime < expiresBefore {
-			a.log.LogDebugText("Delete expired NT password", "s3BucketName", a.settings.S3BucketName, "objectKey", objectKey, "username", username, "ipAddress", ipAddress, "accessTime", accessTime)
+			a.log.LogDebugText(
+				"Delete expired NT password",
+				"s3BucketName", a.settings.S3BucketName,
+				"objectKey", objectKey,
+				"username", username,
+				"ipAddress", ipAddress,
+				"accessTime", accessTime)
 			delete(credentials.NtPasswords, ipAddress)
 		}
 	}
 
 	a.credentialsCache.Set(objectKey, &credentials, ttlcache.DefaultTTL)
+	ipAddresses := make([]string, 0, len(credentials.NtPasswords))
+
+	for ip_address := range credentials.NtPasswords {
+		ipAddresses = append(ipAddresses, ip_address)
+	}
+
+	a.log.LogDebugText(
+		"Get credentials",
+		"s3BucketName", a.settings.S3BucketName,
+		"objectKey", objectKey,
+		"username", username,
+		"ipAddresses", strings.Join(ipAddresses, ", "))
 
 	return &credentials
 }
@@ -129,11 +189,21 @@ func (a *awsCredentialsAdapter) putCredentials(ctx context.Context, s3Client *s3
 	objectData, err := a.encryptJsonToBytes(credentials)
 
 	if err != nil {
-		a.log.LogErrorText("Failed to encrypt credentials", "err", err, "s3BucketName", a.settings.S3BucketName, "objectKey", objectKey, "username", username)
+		a.log.LogErrorText(
+			"Failed to encrypt credentials",
+			"err", err,
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username)
 
 		return err
 	}
 
+	a.log.LogDebugText(
+		"Encrypted credentials",
+		"s3BucketName", a.settings.S3BucketName,
+		"objectKey", objectKey,
+		"username", username)
 	objectTags := url.Values{}
 	objectTags.Add("Username", credentials.Username)
 
@@ -153,12 +223,35 @@ func (a *awsCredentialsAdapter) putCredentials(ctx context.Context, s3Client *s3
 		})
 
 	if err != nil {
-		a.log.LogErrorText("Failed to put S3 object", "err", err, "s3BucketName", a.settings.S3BucketName, "objectKey", objectKey, "username", username)
+		a.log.LogErrorText(
+			"Failed to put S3 object",
+			"err", err,
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username)
 
 		return err
 	}
 
 	a.credentialsCache.Set(objectKey, credentials, ttlcache.DefaultTTL)
+	a.log.LogDebugText(
+		"Put S3 object",
+		"err", err,
+		"s3BucketName", a.settings.S3BucketName,
+		"objectKey", objectKey,
+		"username", username)
+	ipAddresses := make([]string, 0, len(credentials.NtPasswords))
+
+	for ip_address := range credentials.NtPasswords {
+		ipAddresses = append(ipAddresses, ip_address)
+	}
+
+	a.log.LogDebugText(
+		"Put credentials",
+		"s3BucketName", a.settings.S3BucketName,
+		"objectKey", objectKey,
+		"username", username,
+		"ipAddresses", strings.Join(ipAddresses, ", "))
 
 	return nil
 }
@@ -188,7 +281,10 @@ func (a *awsCredentialsAdapter) SelectIpAddresses(vpnUser *adapters.VpnUser) []s
 		ipAddresses = append(ipAddresses, ipAddress)
 	}
 
-	a.log.LogDebugText("SelectIpAddresses", "username", vpnUser.Username)
+	a.log.LogDebugText(
+		"SelectIpAddresses",
+		"username", vpnUser.Username,
+		"ipAddresses", strings.Join(ipAddresses, ", "))
 
 	return ipAddresses
 }
@@ -208,16 +304,24 @@ func (a *awsCredentialsAdapter) SelectNtPassword(vpnUser *adapters.VpnUser, ipAd
 	credentials := a.getCredentials(ctx, s3Client, objectKey, vpnUser.Username)
 
 	if credentials == nil {
+		a.log.LogErrorText("Credentials missing", "vpnUserUsername", vpnUser.Username)
+
 		return ""
 	}
 
 	if credentials.Username != vpnUser.Username {
-		a.log.LogErrorText("Username mismatch", "credentialsUsername", credentials.Username, "vpnUserUsername", vpnUser.Username)
+		a.log.LogErrorText(
+			"Credentials username mismatch",
+			"credentialsUsername", credentials.Username,
+			"vpnUserUsername", vpnUser.Username)
 
 		return ""
 	}
 
-	a.log.LogDebugText("SelectNtPassword", "username", vpnUser.Username, "ipAddress", ipAddress)
+	a.log.LogDebugText(
+		"Selected NT password",
+		"username", vpnUser.Username,
+		"ipAddress", ipAddress)
 
 	credentials.AccessTimes[ipAddress] = time.Now().Unix()
 
@@ -241,6 +345,10 @@ func (a *awsCredentialsAdapter) UpdateNtPassword(vpnUser *adapters.VpnUser, ipAd
 	credentials := a.getCredentials(ctx, s3Client, objectKey, vpnUser.Username)
 
 	if credentials == nil {
+		a.log.LogDebugText(
+			"Credentials missing, creating new blank",
+			"vpnUserUsername", vpnUser.Username)
+
 		credentials = &vpnUserCredentials{
 			Username:    vpnUser.Username,
 			NtPasswords: map[string]string{},
@@ -249,7 +357,10 @@ func (a *awsCredentialsAdapter) UpdateNtPassword(vpnUser *adapters.VpnUser, ipAd
 	}
 
 	if credentials.Username != vpnUser.Username {
-		a.log.LogErrorText("Username mismatch", "credentialsUsername", credentials.Username, "vpnUserUsername", vpnUser.Username)
+		a.log.LogErrorText(
+			"Credentials username mismatch",
+			"credentialsUsername", credentials.Username,
+			"vpnUserUsername", vpnUser.Username)
 
 		return
 	}
@@ -264,6 +375,10 @@ func (a *awsCredentialsAdapter) UpdateNtPassword(vpnUser *adapters.VpnUser, ipAd
 		return
 	}
 
+	a.log.LogDebugText(
+		"Encoded NT password as UTF-16 little endian",
+		"vpnUserUsername", vpnUser.Username)
+
 	hasher := md4.New()
 	_, err = hasher.Write([]byte(passwordUtf16Data))
 
@@ -273,12 +388,25 @@ func (a *awsCredentialsAdapter) UpdateNtPassword(vpnUser *adapters.VpnUser, ipAd
 		return
 	}
 
+	a.log.LogDebugText(
+		"Computed MD4 hash of NT password",
+		"vpnUserUsername", vpnUser.Username)
+
 	credentials.NtPasswords[ipAddress] = strings.ToUpper(hex.EncodeToString(hasher.Sum(nil)))
 	credentials.AccessTimes[ipAddress] = time.Now().Unix()
 
-	if a.putCredentials(ctx, s3Client, objectKey, vpnUser.Username, credentials) == nil {
-		a.log.LogDebugText("UpdateNtPassword", "username", vpnUser.Username, "ipAddress", ipAddress)
+	err = a.putCredentials(ctx, s3Client, objectKey, vpnUser.Username, credentials)
+
+	if err != nil {
+		a.log.LogErrorText("Failed to update NT password", "err", err)
+
+		return
 	}
+
+	a.log.LogDebugText(
+		"Updated NT password",
+		"username", vpnUser.Username,
+		"ipAddress", ipAddress)
 }
 
 func NewAwsCredentialsAdapter(s *settings.AppCredentialsAwsSettings, l adapters.LoggingAdapter) *awsCredentialsAdapter {

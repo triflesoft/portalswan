@@ -126,7 +126,14 @@ func NetFilterWorker(ws *state.WorkerState) bool {
 								DstPort:  flowOriginDstPort,
 							}
 
-							log.LogDebugText("NetFilter create connection", "id", flowID, "username", entry.Username, "srcAddr", entry.SrcAddr, "srcPort", entry.SrcPort, "dstAddr", entry.DstAddr, "dstPort", entry.DstPort)
+							log.LogDebugText(
+								"NetFilter create connection",
+								"id", flowID,
+								"username", entry.Username,
+								"srcAddr", entry.SrcAddr,
+								"srcPort", entry.SrcPort,
+								"dstAddr", entry.DstAddr,
+								"dstPort", entry.DstPort)
 							connectionMap.Store(flowID, entry)
 						case conntrack.EventDestroy:
 							entry, ok := connectionMap.LoadAndDelete(flowID)
@@ -146,7 +153,14 @@ func NetFilterWorker(ws *state.WorkerState) bool {
 								}
 							}
 
-							log.LogDebugText("NetFilter delete connection", "id", flowID, "username", entry.Username, "srcAddr", entry.SrcAddr, "srcPort", entry.SrcPort, "dstAddr", entry.DstAddr, "dstPort", entry.DstPort)
+							log.LogDebugText(
+								"NetFilter delete connection",
+								"id", flowID,
+								"username", entry.Username,
+								"srcAddr", entry.SrcAddr,
+								"srcPort", entry.SrcPort,
+								"dstAddr", entry.DstAddr,
+								"dstPort", entry.DstPort)
 							go logNetFilterConnection(ws.AppState.LoggingAdapter, entry)
 						}
 					}

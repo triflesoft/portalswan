@@ -103,7 +103,10 @@ func (sc *httpServerPortalContext) renderTemplateToString(r *http.Request, templ
 	bldr := strings.Builder{}
 
 	if err := sc.renderTemplate(log, &bldr, r, templateName, contextData, bcp47Tags); err != nil {
-		log.LogErrorText("Failed to render template", "err", err, "templateName", templateName)
+		log.LogErrorText(
+			"Failed to render template",
+			"err", err,
+			"templateName", templateName)
 
 		return "!!!TEMPLATE RENDERING ERROR!!!"
 	}

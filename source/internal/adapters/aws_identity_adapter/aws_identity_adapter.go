@@ -71,7 +71,10 @@ func (a *awsIdentityAdapter) selectAwsUserId(f *identitystoreClientFactory, user
 	userIdCacheItem := a.awsUserIdCache.Get(username)
 
 	if userIdCacheItem != nil {
-		a.log.LogDebugText("Found AWS user ID in cache", "username", username, "user_id", userIdCacheItem.Value())
+		a.log.LogDebugText(
+			"Found AWS user ID in cache",
+			"username", username,
+			"user_id", userIdCacheItem.Value())
 
 		return userIdCacheItem.Value()
 	}
@@ -90,12 +93,18 @@ func (a *awsIdentityAdapter) selectAwsUserId(f *identitystoreClientFactory, user
 
 	if err == nil {
 		a.awsUserIdCache.Set(username, *userIdOutput.UserId, ttlcache.DefaultTTL)
-		a.log.LogDebugText("Found AWS user ID by username", "username", username, "user_id", *userIdOutput.UserId)
+		a.log.LogDebugText(
+			"Found AWS user ID by username",
+			"username", username,
+			"user_id", *userIdOutput.UserId)
 
 		return *userIdOutput.UserId
 	}
 
-	a.log.LogErrorText("Failed to get AWS Identity Center user ID by username", "err", err, "username", username)
+	a.log.LogErrorText(
+		"Failed to get AWS Identity Center user ID by username",
+		"err", err,
+		"username", username)
 
 	userIdOutput, err = f.GetIdentitystoreClient().GetUserId(
 		f.Ctx,
@@ -111,12 +120,18 @@ func (a *awsIdentityAdapter) selectAwsUserId(f *identitystoreClientFactory, user
 
 	if err == nil {
 		a.awsUserIdCache.Set(username, *userIdOutput.UserId, ttlcache.DefaultTTL)
-		a.log.LogDebugText("Found AWS user ID by email", "email", username, "user_id", *userIdOutput.UserId)
+		a.log.LogDebugText(
+			"Found AWS user ID by email",
+			"email", username,
+			"user_id", *userIdOutput.UserId)
 
 		return *userIdOutput.UserId
 	}
 
-	a.log.LogErrorText("Failed to get AWS Identity Center user ID by email", "err", err, "username", username)
+	a.log.LogErrorText(
+		"Failed to get AWS Identity Center user ID by email",
+		"err", err,
+		"username", username)
 
 	return ""
 }
@@ -146,7 +161,11 @@ func (a *awsIdentityAdapter) selectAwsUser(f *identitystoreClientFactory, awsUse
 		})
 
 	if err != nil {
-		a.log.LogErrorText("Failed to describe AWS Identity Center user", "err", err, "awsUserId", awsUserId)
+		a.log.LogErrorText(
+			"Failed to describe AWS Identity Center user",
+			"err", err,
+			"awsUserId", awsUserId)
+
 		return nil
 	}
 
@@ -210,7 +229,11 @@ func (a *awsIdentityAdapter) selectAwsGroup(f *identitystoreClientFactory, awsGr
 		})
 
 	if err != nil {
-		a.log.LogErrorText("Failed to describe AWS Identity Center group", "err", err, "awsGroupId", awsGroupId)
+		a.log.LogErrorText(
+			"Failed to describe AWS Identity Center group",
+			"err", err,
+			"awsGroupId", awsGroupId)
+
 		return nil
 	}
 
@@ -264,7 +287,11 @@ func (a *awsIdentityAdapter) selectAwsUserGroupIds(f *identitystoreClientFactory
 	)
 
 	if err != nil {
-		a.log.LogErrorText("Failed to list AWS Identity Center user`s group memberships", "err", err, "awsUserId", awsUserId)
+		a.log.LogErrorText(
+			"Failed to list AWS Identity Center user`s group memberships",
+			"err", err,
+			"awsUserId", awsUserId)
+
 		return nil
 	}
 

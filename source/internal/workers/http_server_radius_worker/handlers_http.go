@@ -116,7 +116,10 @@ func (sc *httpServerRadiusContext) internalHttpRadiusHandle(w http.ResponseWrite
 
 		go logRadiusRequestReply(log, "RadiusAuthorize", 200, &request, &response)
 
-		log.LogDebugText("Radius authorize", "username", vpnUser.Username, "class", vpnUser.Class)
+		log.LogDebugText(
+			"Radius authorize",
+			"username", vpnUser.Username,
+			"class", vpnUser.Class)
 		w.Header().Del("Content-Type")
 		w.Header().Add("Content-Type", "application/json")
 		w.WriteHeader(200)
@@ -166,7 +169,10 @@ func (sc *httpServerRadiusContext) internalHttpRadiusHandle(w http.ResponseWrite
 		if (username != "") && (framedIpAddress != "") && (statusType != "") {
 			switch statusType {
 			case "Start":
-				log.LogDebugText("Radius create VPN connection", "framedIpAddress", framedIpAddress, "username", username)
+				log.LogDebugText(
+					"Radius create VPN connection",
+					"framedIpAddress", framedIpAddress,
+					"username", username)
 				ws.AppState.SetVpnConnectionState(
 					framedIpAddress,
 					&state.VpnConnectionState{
@@ -176,22 +182,36 @@ func (sc *httpServerRadiusContext) internalHttpRadiusHandle(w http.ResponseWrite
 				connectionState, ok := ws.AppState.DelVpnConnectionState(framedIpAddress)
 
 				if !ok {
-					log.LogErrorText("Radius delete VPN connection failed, connection missing", "framedIpAddress", framedIpAddress)
+					log.LogErrorText(
+						"Radius delete VPN connection failed, connection missing",
+						"framedIpAddress", framedIpAddress,
+						"username", username)
 				} else if connectionState.Username != username {
-					log.LogErrorText("Radius delete VPN connection failed, username mismatch", "framedIpAddress", framedIpAddress, "username", username)
+					log.LogErrorText(
+						"Radius delete VPN connection failed, username mismatch",
+						"framedIpAddress", framedIpAddress,
+						"username", username)
 				} else {
-					log.LogDebugText("Radius delete VPN connection", "framedIpAddress", framedIpAddress, "username", username)
+					log.LogDebugText(
+						"Radius delete VPN connection",
+						"framedIpAddress", framedIpAddress,
+						"username", username)
 				}
 			case "Interim-Update":
 				if (inputOctets > 0) && (inputPackets > 0) && (outputOctets > 0) && (outputPackets > 0) {
 					connectionState, ok := ws.AppState.GetVpnConnectionState(framedIpAddress)
 
 					if !ok {
-						log.LogErrorText("Radius update VPN connection failed, unknown connection", "framedIpAddress", framedIpAddress)
+						log.LogErrorText(
+							"Radius update VPN connection failed, unknown connection",
+							"framedIpAddress", framedIpAddress)
 					} else {
 
 						if connectionState.Username != username {
-							log.LogErrorText("Radius update VPN connection failed, username mismatch", "framedIpAddress", framedIpAddress, "username", username)
+							log.LogErrorText(
+								"Radius update VPN connection failed, username mismatch",
+								"framedIpAddress", framedIpAddress,
+								"username", username)
 							connectionState.Username = username
 						}
 

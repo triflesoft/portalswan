@@ -55,7 +55,10 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 			vpnUser := ws.AppState.IdentityAdapter.SelectVpnUser(formEmail)
 
 			if vpnUser == nil {
-				log.LogErrorText("Failed to get VPN user by username", "remoteIpAddress", r.RemoteAddr, "username", formEmail)
+				log.LogErrorText(
+					"Failed to get VPN user by username",
+					"remoteIpAddress", r.RemoteAddr,
+					"username", formEmail)
 
 				return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 			}
@@ -67,7 +70,10 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 			tokenEncryptedText, err := encryptToken(log, token)
 
 			if err != nil {
-				log.LogErrorText("Failed to encrypt create password token", "err", err, "remoteIpAddress", r.RemoteAddr)
+				log.LogErrorText(
+					"Failed to encrypt create password token",
+					"err", err,
+					"remoteIpAddress", r.RemoteAddr)
 
 				return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 			}
@@ -94,7 +100,10 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 				linuxWriter, err := zipWriter.Create(fmt.Sprintf("VPN-Linux-[%s].sh_REMOVE_ME", r.Host))
 
 				if err != nil {
-					log.LogErrorText("Failed to create ZIP file", "err", err, "remoteIpAddress", r.RemoteAddr)
+					log.LogErrorText(
+						"Failed to create ZIP file",
+						"err", err,
+						"remoteIpAddress", r.RemoteAddr)
 
 					return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 				}
@@ -102,7 +111,10 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 				n, err := linuxWriter.Write(linuxSetupScriptContents)
 
 				if (err != nil) || (n != len(linuxSetupScriptContents)) {
-					log.LogErrorText("Failed to create ZIP file", "err", err, "remoteIpAddress", r.RemoteAddr)
+					log.LogErrorText(
+						"Failed to create ZIP file",
+						"err", err,
+						"remoteIpAddress", r.RemoteAddr)
 
 					return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 				}
@@ -110,7 +122,10 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 				windowsWriter, err := zipWriter.Create(fmt.Sprintf("VPN-Windows-[%s].ps1_REMOVE_ME", r.Host))
 
 				if err != nil {
-					log.LogErrorText("Failed to create ZIP file", "err", err, "remoteIpAddress", r.RemoteAddr)
+					log.LogErrorText(
+						"Failed to create ZIP file",
+						"err", err,
+						"remoteIpAddress", r.RemoteAddr)
 
 					return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 				}
@@ -118,13 +133,19 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 				n, err = windowsWriter.Write(windowsSetupScriptContents)
 
 				if (err != nil) || (n != len(windowsSetupScriptContents)) {
-					log.LogErrorText("Failed to create ZIP file", "err", err, "remoteIpAddress", r.RemoteAddr)
+					log.LogErrorText(
+						"Failed to create ZIP file",
+						"err", err,
+						"remoteIpAddress", r.RemoteAddr)
 
 					return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 				}
 
 				if err = zipWriter.Close(); err != nil {
-					log.LogErrorText("Failed to create ZIP file", "err", err, "remoteIpAddress", r.RemoteAddr)
+					log.LogErrorText(
+						"Failed to create ZIP file",
+						"err", err,
+						"remoteIpAddress", r.RemoteAddr)
 
 					return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 				}
@@ -196,13 +217,19 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceCreatePasswordDoneHan
 	err := decryptToken(log, tokenText, &token, 60*time.Minute)
 
 	if err != nil {
-		log.LogErrorText("Failed to descrupt token", "remoteIpAddress", r.RemoteAddr)
+		log.LogErrorText(
+			"Failed to descrupt token",
+			"err", err,
+			"remoteIpAddress", r.RemoteAddr)
 
 		return http.StatusUnauthorized, "webui-self-service-create-password-fail.html", nil, nil
 	}
 
 	if token.IpAddress != r.RemoteAddr {
-		log.LogErrorText("IP address mismatch", "remoteIpAddress", r.RemoteAddr, "tokenIpAddress", token.IpAddress)
+		log.LogErrorText(
+			"IP address mismatch",
+			"remoteIpAddress", r.RemoteAddr,
+			"tokenIpAddress", token.IpAddress)
 
 		return http.StatusUnauthorized, "webui-self-service-create-password-fail.html", nil, nil
 	}
@@ -230,7 +257,10 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceCreatePasswordDoneHan
 	vpnUser := ws.AppState.IdentityAdapter.SelectVpnUser(token.Username)
 
 	if vpnUser == nil {
-		log.LogErrorText("Failed to get VPN user by username", "remoteIpAddress", r.RemoteAddr, "username", token.Username)
+		log.LogErrorText(
+			"Failed to get VPN user by username",
+			"remoteIpAddress", r.RemoteAddr,
+			"username", token.Username)
 
 		return http.StatusUnauthorized, "webui-self-service-create-password-fail.html", nil, nil
 	}

@@ -19,7 +19,11 @@ type awsEmailAdapter struct {
 func (a *awsEmailAdapter) SendEmail(recipientAddress string, subject string, bodyText string, bodyHtml string, attachments map[string]adapters.EmailAttachment) {
 	defer func() {
 		if err := recover(); err != nil {
-			a.log.LogErrorText("Failed to generate email", "err", err, "recipientAddress", recipientAddress, "subject", subject)
+			a.log.LogErrorText(
+				"Failed to generate email",
+				"err", err,
+				"recipientAddress", recipientAddress,
+				"subject", subject)
 		}
 	}()
 
@@ -85,11 +89,19 @@ func (a *awsEmailAdapter) SendEmail(recipientAddress string, subject string, bod
 		})
 
 	if err != nil {
-		a.log.LogErrorText("Failed to send email", "err", err, "recipientAddress", recipientAddress, "subject", subject)
+		a.log.LogErrorText(
+			"Failed to send email",
+			"err", err,
+			"recipientAddress", recipientAddress,
+			"subject", subject)
+
 		return
 	}
 
-	a.log.LogDebugText("Sent email", "recipientAddress", recipientAddress, "subject", subject)
+	a.log.LogDebugText(
+		"Sent email",
+		"recipientAddress", recipientAddress,
+		"subject", subject)
 }
 
 func NewAwsEmailAdapter(s *settings.AppEmailAwsSettings, l adapters.LoggingAdapter) *awsEmailAdapter {
