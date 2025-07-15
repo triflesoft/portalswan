@@ -130,35 +130,35 @@ func (a *awsCredentialsAdapter) getCredentials(ctx context.Context, s3Client *s3
 		"username", username)
 
 	if credentials.NtPasswords == nil {
+		credentials.NtPasswords = map[string]string{}
 		a.log.LogDebugText(
-			"Credentials are missing nt_passwords attribute, creating new blank",
+			"Created new blank nt_passwords map, credentials were missing nt_passwords attribute",
 			"s3BucketName", a.settings.S3BucketName,
 			"objectKey", objectKey,
 			"username", username)
-		credentials.NtPasswords = map[string]string{}
 	}
 
 	if credentials.AccessTimes == nil {
+		credentials.AccessTimes = map[string]int64{}
 		a.log.LogDebugText(
-			"Credentials are missing access_times attribute, creating new blank",
+			"Created new blank nt_passwords map, credentials were missing access_times attribute",
 			"s3BucketName", a.settings.S3BucketName,
 			"objectKey", objectKey,
 			"username", username)
-		credentials.AccessTimes = map[string]int64{}
 	}
 
 	expiresBefore := time.Now().Unix() - 15*24*60*60
 
 	for ipAddress, accessTime := range credentials.AccessTimes {
 		if accessTime < expiresBefore {
+			delete(credentials.NtPasswords, ipAddress)
 			a.log.LogDebugText(
-				"Delete expired NT password",
+				"Deleted expired NT password",
 				"s3BucketName", a.settings.S3BucketName,
 				"objectKey", objectKey,
 				"username", username,
 				"ipAddress", ipAddress,
 				"accessTime", accessTime)
-			delete(credentials.NtPasswords, ipAddress)
 		}
 	}
 
@@ -170,7 +170,7 @@ func (a *awsCredentialsAdapter) getCredentials(ctx context.Context, s3Client *s3
 	}
 
 	a.log.LogDebugText(
-		"Get credentials",
+		"Got credentials",
 		"s3BucketName", a.settings.S3BucketName,
 		"objectKey", objectKey,
 		"username", username,
@@ -282,7 +282,7 @@ func (a *awsCredentialsAdapter) SelectIpAddresses(vpnUser *adapters.VpnUser) []s
 	}
 
 	a.log.LogDebugText(
-		"SelectIpAddresses",
+		"Selected IP addresses",
 		"username", vpnUser.Username,
 		"ipAddresses", strings.Join(ipAddresses, ", "))
 
@@ -304,7 +304,7 @@ func (a *awsCredentialsAdapter) SelectNtPassword(vpnUser *adapters.VpnUser, ipAd
 	credentials := a.getCredentials(ctx, s3Client, objectKey, vpnUser.Username)
 
 	if credentials == nil {
-		a.log.LogErrorText("Credentials missing", "vpnUserUsername", vpnUser.Username)
+		a.log.LogErrorText("Failed to get credentials, credentials are missing", "vpnUserUsername", vpnUser.Username)
 
 		return ""
 	}
@@ -318,16 +318,25 @@ func (a *awsCredentialsAdapter) SelectNtPassword(vpnUser *adapters.VpnUser, ipAd
 		return ""
 	}
 
-	a.log.LogDebugText(
-		"Selected NT password",
-		"username", vpnUser.Username,
-		"ipAddress", ipAddress)
-
 	credentials.AccessTimes[ipAddress] = time.Now().Unix()
 
 	a.putCredentials(ctx, s3Client, objectKey, vpnUser.Username, credentials)
 
-	return credentials.NtPasswords[ipAddress]
+	ntPassword, ok := credentials.NtPasswords[ipAddress]
+
+	if ok {
+		a.log.LogDebugText(
+			"Selected NT password",
+			"username", vpnUser.Username,
+			"ipAddress", ipAddress)
+	} else {
+		a.log.LogErrorText(
+			"Failed to select NT password",
+			"username", vpnUser.Username,
+			"ipAddress", ipAddress)
+	}
+
+	return ntPassword
 }
 
 func (a *awsCredentialsAdapter) UpdateNtPassword(vpnUser *adapters.VpnUser, ipAddress string, clearTextPassword string) {
@@ -345,15 +354,15 @@ func (a *awsCredentialsAdapter) UpdateNtPassword(vpnUser *adapters.VpnUser, ipAd
 	credentials := a.getCredentials(ctx, s3Client, objectKey, vpnUser.Username)
 
 	if credentials == nil {
-		a.log.LogDebugText(
-			"Credentials missing, creating new blank",
-			"vpnUserUsername", vpnUser.Username)
-
 		credentials = &vpnUserCredentials{
 			Username:    vpnUser.Username,
 			NtPasswords: map[string]string{},
 			AccessTimes: map[string]int64{},
 		}
+
+		a.log.LogDebugText(
+			"Created new blank credentials, credentials were missing",
+			"vpnUserUsername", vpnUser.Username)
 	}
 
 	if credentials.Username != vpnUser.Username {
