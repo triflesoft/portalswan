@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"net/mail"
 	"strings"
 	"time"
 
@@ -52,18 +53,24 @@ func (sc *httpServerPortalContext) externalHttpsSelfServiceHandler(r *http.Reque
 		switch formAction {
 		case "create-password":
 			formEmail := r.Form.Get("email")
-			vpnUser := ws.AppState.IdentityAdapter.SelectVpnUser(formEmail)
+			emailAddress, err := mail.ParseAddress(formEmail)
+
+			if err != nil {
+				return http.StatusFound, "/self-service/", nil, nil
+			}
+
+			vpnUser := ws.AppState.IdentityAdapter.SelectVpnUser(emailAddress.Address)
 
 			if vpnUser == nil {
 				log.LogErrorText(
 					"Failed to get VPN user by username",
 					"remoteIpAddress", r.RemoteAddr,
-					"username", formEmail)
+					"username", emailAddress.Address)
 
 				return http.StatusFound, "/self-service/create-password/sent/", nil, nil
 			}
 			token := &webAccessToken{
-				Username:  formEmail,
+				Username:  emailAddress.Address,
 				IpAddress: r.RemoteAddr,
 			}
 
