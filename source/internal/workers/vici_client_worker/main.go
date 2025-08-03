@@ -53,7 +53,7 @@ func ViciWorker(ws *state.WorkerState) bool {
 					ws.ReportQuitCompleted()
 					return
 				case event := <-eventChan:
-					go logViciMessage(ws, event.Message)
+					logViciMessage(ws, event.Message)
 				}
 			}
 		}
