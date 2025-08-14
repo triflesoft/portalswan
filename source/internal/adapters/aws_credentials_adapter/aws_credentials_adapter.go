@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"net/url"
+	"sort"
 	"strings"
 	"time"
 
@@ -141,7 +142,7 @@ func (a *awsCredentialsAdapter) getCredentials(ctx context.Context, s3Client *s3
 	if credentials.AccessTimes == nil {
 		credentials.AccessTimes = map[string]int64{}
 		a.log.LogDebugText(
-			"Created new blank nt_passwords map, credentials were missing access_times attribute",
+			"Created new blank access_times map, credentials were missing access_times attribute",
 			"s3BucketName", a.settings.S3BucketName,
 			"objectKey", objectKey,
 			"username", username)
@@ -160,6 +161,32 @@ func (a *awsCredentialsAdapter) getCredentials(ctx context.Context, s3Client *s3
 				"ipAddress", ipAddress,
 				"accessTime", accessTime)
 		}
+	}
+
+	type IpAddressAccessTime struct {
+		IpAddress  string
+		AccessTime int64
+	}
+
+	var ipAddressAccessTimes []IpAddressAccessTime
+
+	for key, value := range credentials.AccessTimes {
+		ipAddressAccessTimes = append(ipAddressAccessTimes, IpAddressAccessTime{key, value})
+	}
+
+	sort.Slice(ipAddressAccessTimes, func(i, j int) bool { return ipAddressAccessTimes[i].AccessTime > ipAddressAccessTimes[j].AccessTime })
+
+	for i := 4; i < len(ipAddressAccessTimes); i++ {
+		delete(credentials.NtPasswords, ipAddressAccessTimes[i].IpAddress)
+		delete(credentials.AccessTimes, ipAddressAccessTimes[i].IpAddress)
+
+		a.log.LogDebugText(
+			"Deleted deprecated NT password",
+			"s3BucketName", a.settings.S3BucketName,
+			"objectKey", objectKey,
+			"username", username,
+			"ipAddress", ipAddressAccessTimes[i].IpAddress,
+			"accessTime", ipAddressAccessTimes[i].AccessTime)
 	}
 
 	a.credentialsCache.Set(objectKey, &credentials, ttlcache.DefaultTTL)
